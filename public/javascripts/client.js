@@ -8,7 +8,7 @@ function init() {
 	
 	// receive line from IRC
 	socket.on('msg', function (data) {
-		$('#ircrows').append('<div class="ircrow">'+ data.time +': &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
+		$('#ircrows').append('<div class="ircrow">'+ mmss(data.time) +' &lt;'+ data.presence +'&gt;: '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC
@@ -26,6 +26,11 @@ function init() {
 		socket.emit('login', $('#nick').val());
 	});
 }
+
+function mmss(time) {
+	var dt = new Date(time * 1000);
+	return dt.getHours() +":"+ dt.getMinutes();
+};
 
 // jquery
 $(document).ready(function() {
