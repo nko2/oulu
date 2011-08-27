@@ -19,6 +19,12 @@ function init() {
 		// clear the text field
 		$('#prompt').val('');
 	});
+
+	// set nick
+	$('#loginform').submit(function (event) {
+		event.preventDefault();
+		socket.emit('nick', $('#nick').val());
+	});
 }
 
 // jquery
