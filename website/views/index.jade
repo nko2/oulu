@@ -11,6 +11,12 @@ div(class="row")
 		h1 Web-chat
 	
 div(class="row")
+	div(class="span15 columns offset1")
+		div(id="input")
+			form(id="sendmsgform")
+				input(type="text",id="prompt",autocomplete='off')
+
+div(class="row")
 	div(class="span13 columns offset1")
 		ul(class="tabs")
 			li(class="active")
@@ -28,8 +34,3 @@ div(class="row")
 			li jhh
 			li jkj
 
-div(class="row")
-	div(class="span15 columns offset1")
-		div(id="input")
-			form(id="sendmsgform")
-				input(type="text",id="prompt",size="80")
