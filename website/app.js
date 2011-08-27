@@ -17,7 +17,6 @@ var express = require('express'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
-//    icecap = require('icecap').create();
 
 params.extend(app);
 
@@ -70,8 +69,8 @@ io.sockets.on('connection', function (socket) {
 	
 	console.log('CONNECTION!');
 	
-	socket.on('msg', function(msg) {
-		console.log( 'DEBUG msg: ' + sys.inspect( msg ) );
+	socket.on('icecap-event', function(name, tokens) {
+		console.log( 'socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( msg ) );
 	});
 
 		/*
