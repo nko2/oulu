@@ -9,5 +9,6 @@
     , "express-namespace": "*"
     , "jade": ">= 0.0.1"
     , "socket.io": ">= 0.7"
+    , "icecap": "*"
   }
 }
