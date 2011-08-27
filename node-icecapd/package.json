@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "init": "*",
-    "icecap": "*"
+    "icecap": "*",
+    "socket.io-client": "*"
   },
   "devDependencies": {}
 }
