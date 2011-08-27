@@ -70,7 +70,7 @@ io.sockets.on('connection', function (socket) {
 	console.log('CONNECTION!');
 	
 	socket.on('icecap-event', function(name, tokens) {
-		console.log( 'socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( msg ) );
+		console.log( 'socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens.msg ) );
 	});
 
 		/*
