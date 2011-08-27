@@ -7,7 +7,7 @@ function $(name) {
 
 /* Init window */
 function init() {
-	var socket = io.connect();
+	var socket = io.connect('http://localhost:3000');
 	socket.on('htmlmsg', function (data) {
 		console.log('Writing to page!');
 		$('rows').innerHTML += data;
