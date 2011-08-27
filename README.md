@@ -20,3 +20,8 @@ Oulu is the home of IRC.
 
 IRC doesn't sit well in the modern internet ruled by the web but still
 has a formidable user base. We don't want IRC to die away.
+
+
+### TODO
+
+* Gravator integration. User has a address with `jhh@jhh.me` then the avator can be automatically selected.
