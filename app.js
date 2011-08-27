@@ -13,9 +13,7 @@ var config = require('./config.js'),
 params.extend(app);
 
 // Helpers
-app.dynamicHelpers({
-	'config': config
-});
+//app.dynamicHelpers({'config': config});
 
 // Configuration
 app.configure(function() {
