@@ -4,7 +4,7 @@
 function init() {
 	
 	//var socket = io.connect('http://localhost:3000');
-	var socket = io.connect();
+	var socket = io.connect('http://localhost:3000/client');
 	
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {

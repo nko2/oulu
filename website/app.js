@@ -58,50 +58,37 @@ app.get('/', function(req, res) {
 	});
 });
 
-	io.sockets.on('connection', function (socket) {
-		
-		console.log('DEBUG: CONNECTION!');
-		
-		socket.on('icecap-event', function(name, tokens) {
-			console.log( 'DEBUG: socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-			socket.emit('icecap-event', name, tokens);
-		});
+/* Setup io.sockets */
+(function() {
 	
-		socket.on('icecap.command', function(name, tokens) {
-			console.log( 'DEBUG: socket.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-		});
+	var client, shell;
 	
-			/*
-		socket.on('input', function(msg) {
-			console.log("Routing message from web to icecap");
-			icecap.command(
-				'msg', {
-					'channel':'#oulu',
-		    		'network':'freenode',
-		    		'msg': msg
-				});
+	/* Web browser -- the true client */
+	client = io.of('/client');
+	
+	client.on('connection', function (client_socket) {
+		console.log('DEBUG: client: CONNECTION!');
+		
+		client_socket.on('icecap.command', function(name, tokens) {
+			console.log( 'DEBUG: client_socket.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
 		});
-			*/
+		
+	});
+	
+	/* User's shell daemon (there is icecapd) -- the true backend */
+	shell = io.of('/shell');
+	
+	shell.on('connection', function (shell_socket) {
+		console.log('DEBUG: shell: CONNECTION!');
+		
+		shell_socket.on('icecap-event', function(name, tokens) {
+			console.log( 'DEBUG: shell_socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			if(client) client.emit('icecap-event', name, tokens);
+		});
 		
 	});
 
-	console.log("Registering icecap message handler");
-	
-	/*
-	icecap.on('msg', function(tokens) {
-		console.log("Routing icecap message to web");
-		
-		// HTML formated msg
-		//var fn = jade.compile('string of jade', options);
-		
-		// *;msg;id=234442;time=1314424203;network=freenode;mypresence=jheusala2;channel=#oulu;msg=Hello world ABCXXXXXX;presence=jheusala;address=jhh@jhh.me;user=jhh
-
-		io.sockets.emit('msg', tokens); // parsitaan clientillä
-
-		//io.sockets.emit('htmlmsg', '<div class="ircrow">&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
-		
-	});
-	*/
+})();
 
 /* Setup HTTP */
 (function() {

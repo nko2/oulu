@@ -1,7 +1,7 @@
 /* icecapd */
 
 var io = require('socket.io-client'),
-    socket = io.connect('http://localhost:3000'),
+    socket = io.connect('http://localhost:3000/shell'),
     sys = require('sys'),
     icecap = require('icecap').create();
 
