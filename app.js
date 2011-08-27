@@ -7,6 +7,7 @@ try {
 } catch (e) {
 	var config = require('./config.sample.js');
 };
+
 var express = require('express'),
     params = require('express-params'),
     namespace = require('express-namespace'),
