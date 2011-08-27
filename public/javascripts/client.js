@@ -8,7 +8,7 @@ function init() {
 	
 	// receive line from IRC
 	socket.on('msg', function (data) {
-		$('#ircrows').append('<div class="ircrow">'+ mmss(data.time) +' &lt;'+ data.presence +'&gt;: '+ data.msg +'</div>');
+		$('#ircrows').append('<div class="ircrow">'+ mmss(data.time) +' &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC
