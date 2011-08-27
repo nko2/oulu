@@ -4,17 +4,45 @@
 
 var config = require('./config.js'),
     express = require('express'),
+    params = require('express-params'),
+    namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
     icecap = require('icecap').create();
 
-// Configuration
+// Set default umask
+process.umask(0077);
 
+params.extend(app);
+
+/* App config middleware */
+express.appconfig = (function(options) {
+	return (function(req, res, next) {
+		try {
+			req.appconfig = config;
+		} catch(e) {
+			next(e);
+			return;
+		}
+		next();
+	});
+});
+
+// Helpers
+app.dynamicHelpers({
+	'config': config
+});
+
+// Configuration
 app.configure(function() {
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
+	app.use(express.favicon());
+	app.use(express.logger({ format: ':date - :method :status :url' }));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.appconfig());
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
