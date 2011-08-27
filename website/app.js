@@ -8,7 +8,7 @@ var app = module.exports = {},
 website_app.config(config.website);
 shell_app.config(config.shell);
 
-website_app.listen( config.website.bind );
-shell_app.listen( config.shell.bind );
+website_app.listen( config.website );
+shell_app.listen( config.shell );
 
 /* EOF */

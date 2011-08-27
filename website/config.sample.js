@@ -8,11 +8,6 @@ config.transports = ['xhr-polling'];
 config.port = 3000; // Shell service will use 3001 by default
 
 /*
-config.website = {
-	bind: {'port': 3000}
-};
-
-config.shell = {
-	bind = {'port': 3001}
-};
+config.website = { 'port': 3000 };
+config.shell   = { 'port': 3001 };
 */

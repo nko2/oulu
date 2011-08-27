@@ -106,10 +106,10 @@ app.config = (function(config) {
 }); // end of config
 
 /* Setup HTTP */
-app.listen = (function(options) {
-	var options = options || {},
-	    port = options.port || 3001,
-	    host = options.host;
+app.listen = (function(config) {
+	var config = config || {},
+	    port = config.port || 3001,
+	    host = config.host;
 	if(host) app.listen(host, port);
 	else app.listen(port);
 	console.log("Express server listening on port %d in %s mode",
