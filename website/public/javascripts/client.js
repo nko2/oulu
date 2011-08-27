@@ -8,8 +8,9 @@ function init() {
 	
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
+		console.log("icecap-event received: '" + name + "'");
+		$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
-		console.log('icecap-event received: ' + name);
 		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
