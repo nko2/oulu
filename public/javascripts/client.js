@@ -27,6 +27,7 @@ function init() {
 	});
 }
 
+// Convert unix-timestamp to HH:MM format
 function mmss(time) {
 	var dt = new Date(time * 1000);
 	return dt.getHours() +":"+ dt.getMinutes();
