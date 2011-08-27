@@ -2,9 +2,22 @@ div(class="topbar")
 	div(class="fill")
 		div(class="container")
 			h3
-				a(href="#") WebIceCap from Oulu
-			form(id="loginform")
-				input(type="text",id="nick",placeholder="Set your nick here",autocomplete='off')
+				span
+					| Modern 
+					a(href='http://en.wikipedia.org/wiki/IRC') IRC
+					|  from 
+					a(href='http://www.wolframalpha.com/input/?i=Oulu',target='_blank') Oulu
+					|  by 
+					a(href='http://nodeknockout.com/teams/oulu',target='_blank') NKO Oulu
+					|  where 
+					a(href='http://en.wikipedia.org/wiki/IRC#History',target='_blank') IRC was born
+					| .
+			a(href="/signup") Sign up!
+			|  It takes only 15 seconds.
+			//form(id="loginform",method="post",action="/login")
+			//	input(type="text",id="username",placeholder="Username",autocomplete='off')
+			//	input(type="text",id="password",placeholder="Password",autocomplete='off')
+			//	input(type="submit",value="Login",autocomplete='off')
 
 div(class="row")
 	div(class="span4 columns offset2")
@@ -21,9 +34,9 @@ div(class="row")
 	div(class="span13 columns offset1")
 		ul(class="tabs")
 			li(class="active")
-				a(href="#") #oulu
-			li
-				a(href="#") #node.js
+				a(href="#") Timeline
+			// li
+			// 	a(href="#") Mentions
 		div(id="ircrows")
 			div(class="ircrow")
 				span "foo"

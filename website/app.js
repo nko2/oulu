@@ -61,7 +61,7 @@ app.get('/', function(req, res) {
 /* Setup io.sockets */
 (function() {
 	
-	var client, shell;
+	var client, shells;
 	
 	/* Web browser -- the true client */
 	client = io.of('/client');
@@ -71,6 +71,7 @@ app.get('/', function(req, res) {
 		
 		client_socket.on('icecap.command', function(name, tokens) {
 			console.log( 'DEBUG: client_socket.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			
 		});
 		
 	});
