@@ -1,8 +1,6 @@
 NKO Oulu Team - Real Time Webchat using IceCap
 ==============================================
 
-Test
-
 A web IRC that doesn't suck
 ---------------------------
 
