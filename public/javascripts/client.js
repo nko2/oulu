@@ -7,7 +7,7 @@ function init() {
 	var socket = io.connect();
 	socket.on('htmlmsg', function (data) {
 		console.log('Writing to page!');
-		$('#rows').append(data);
+		$('#ircrows').append(data);
 	});
 	
 	// send line to IRC
