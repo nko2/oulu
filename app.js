@@ -4,7 +4,7 @@
 
 var express = require('express'),
     app = module.exports = express.createServer(),
-    io = require('socket.io').listen(app),
+    io = require('socket.io').listen(app);
     icecap = require('icecap').create();
 
 // Configuration
@@ -39,12 +39,6 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function (socket) {
 	
-	socket.emit('news', { hello: 'world' });
-	
-	socket.on('my other event', function (data) {
-		console.log(data);
-	});
-	
 	socket.on('input', function(msg) {
 		console.log("Routing message from web to icecap");
 		icecap.command(
@@ -58,9 +52,15 @@ io.sockets.on('connection', function (socket) {
 });
 
 console.log("Registering icecap message handler");
+
 icecap.on('msg', function(tokens) {
 	console.log("Routing icecap message to web");
 	io.sockets.emit('msg', tokens);
+	
+	// HTML formated msg
+	//var fn = jade.compile('string of jade', options);
+	io.sockets.emit('htmlmsg', '<div>Hello</div>');
+
 });
 
 app.listen(3000);
