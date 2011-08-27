@@ -7,14 +7,15 @@ function init() {
 	var socket = io.connect();
 	
 	// receive line from IRC
-	socket.on('msg', function (data) {
+	socket.on('icecap-event', function (name, data) {
+		if(name !== 'msg') return;
 		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('input', $('#prompt').val());
+		socket.emit('icecap.command', 'msg', { 'msg': $('#prompt').val() } );
 		
 		// clear the text field
 		$('#prompt').val('');
