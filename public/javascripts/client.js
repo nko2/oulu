@@ -16,10 +16,9 @@ function init() {
 	});
 	
 }
-function sendMsg() {
-	
-	socket.emit('msg', document.sendmsgform.msg.value);
-}
+/*function sendMsg() {
+
+}*/
 
 window.onload = init;
 
