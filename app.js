@@ -75,7 +75,7 @@ io.sockets.on('connection', function (socket) {
 		
 		// *;msg;id=234442;time=1314424203;network=freenode;mypresence=jheusala2;channel=#oulu;msg=Hello world ABCXXXXXX;presence=jheusala;address=jhh@jhh.me;user=jhh
 
-		io.sockets.emit('htmlmsg', '<div>&gt;'+tokens.presence + '&lt; ' + tokens.msg+'</div>');
+		io.sockets.emit('htmlmsg', '<div>&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
 		
 	});
 
