@@ -1,19 +1,19 @@
 /* icecapd */
 
 var init = require('init'),
-    sys = require('sys'),
-    config = require('./config.js'),
-    pidfile = config.pidfile || './myprog.pid',
-    logfile = config.logfile,
-    io = require('socket.io-client'),
-    socket = io.connect('http://localhost:3000/shell'),
-    icecap = require('icecap').create();
+    config = require('./config.js');
 
 init.simple({
-	pidfile : pidfile,
-	logfile : logfile,
+	pidfile : config.pidfile || './myprog.pid',
+	logfile : config.logfile,
 	command : process.argv[3],
 	run     : function () {
+		
+		var io = require('socket.io-client'),
+		    sys = require('sys'),
+		    socket = io.connect(config.iotarget || 'http://localhost:3000/shell'),
+		    icecap = require('icecap').create();
+		
 		socket.on('connect', function () {
 			console.log('DEBUG: Connection !');
 			
