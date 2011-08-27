@@ -1,1 +1,2 @@
-/usr/local/bin/supervisor -w app.js
+#!/bin/sh
+exec /usr/local/bin/supervisor -w app.js
