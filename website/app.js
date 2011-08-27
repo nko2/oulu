@@ -16,8 +16,8 @@ var express = require('express'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
-    io = require('socket.io').listen(app),
-    icecap = require('icecap').create();
+    io = require('socket.io').listen(app);
+//    icecap = require('icecap').create();
 
 params.extend(app);
 
@@ -74,6 +74,7 @@ io.sockets.on('connection', function (socket) {
 		console.log( 'DEBUG msg: ' + sys.inspect( msg ) );
 	});
 
+		/*
 	socket.on('input', function(msg) {
 		console.log("Routing message from web to icecap");
 		icecap.command(
@@ -83,6 +84,7 @@ io.sockets.on('connection', function (socket) {
 	    		'msg': msg
 			});
 	});
+		*/
 	
 });
 
@@ -91,6 +93,7 @@ io.sockets.on('connection', function (socket) {
 
 	console.log("Registering icecap message handler");
 	
+	/*
 	icecap.on('msg', function(tokens) {
 		console.log("Routing icecap message to web");
 		
@@ -104,6 +107,7 @@ io.sockets.on('connection', function (socket) {
 		//io.sockets.emit('htmlmsg', '<div class="ircrow">&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
 		
 	});
+	*/
 
 })(); // end of setup icecap
 
