@@ -9,7 +9,7 @@ function $(name) {
 function init() {
 	var socket = io.connect();
 	socket.on('htmlmsg', function (data) {
-		//console.log(data);
+		console.log('Writing to page!');
 		$('rows').innerHTML += data;
 	});
 }

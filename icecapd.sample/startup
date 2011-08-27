@@ -1,11 +1,5 @@
-network add;time=1270555699;network=ircnet;protocol=irc
-gateway add;host=irc.opoy.fi;network=ircnet;port=6667
-presence add;network=ircnet;mypresence=jheusala2;real_name=jheusala2;autoconnect
-channel add;network=ircnet;mypresence=jheusala2;channel=#sendanor-staff;autojoin;out_charset=utf-8;in_charsets=utf-8
-channel add;time=1288538985.9;channel=#webicecap;network=ircnet;mypresence=jheusala2;out_charset=utf-8;in_charsets=utf-8;autojoin
 network add;time=1270555699;network=freenode;protocol=irc
 gateway add;host=chat.freenode.net;network=freenode;port=6667
 presence add;network=freenode;mypresence=jheusala2;real_name=jheusala2;autoconnect
 channel add;network=freenode;mypresence=jheusala2;channel=#oulu;autojoin;out_charset=utf-8;in_charsets=utf-8
 channel add;network=freenode;mypresence=jheusala2;channel=#node.js;autojoin;out_charset=utf-8;in_charsets=utf-8
-
