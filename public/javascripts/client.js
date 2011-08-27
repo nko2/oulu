@@ -23,7 +23,7 @@ function init() {
 	// set nick
 	$('#loginform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('nick', $('#nick').val());
+		socket.emit('login', $('#nick').val());
 	});
 }
 
