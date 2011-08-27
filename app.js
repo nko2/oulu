@@ -10,23 +10,7 @@ var config = require('./config.js'),
     io = require('socket.io').listen(app);
     icecap = require('icecap').create();
 
-// Set default umask
-process.umask(0077);
-
 params.extend(app);
-
-/* App config middleware */
-express.appconfig = (function(options) {
-	return (function(req, res, next) {
-		try {
-			req.appconfig = config;
-		} catch(e) {
-			next(e);
-			return;
-		}
-		next();
-	});
-});
 
 // Helpers
 app.dynamicHelpers({
@@ -42,7 +26,6 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
-	app.use(express.appconfig());
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
@@ -96,6 +79,14 @@ io.sockets.on('connection', function (socket) {
 	});
 
 })(); // end of setup icecap
+
+/* Setup process */
+(function() {
+
+	// Set default umask
+	process.umask(0077);
+
+})(); // end of setup process
 
 /* Setup HTTP */
 (function() {
