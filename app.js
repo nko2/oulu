@@ -2,7 +2,8 @@
  * Module dependencies.
  */
 
-var express = require('express'),
+var config = require('config'),
+    express = require('express'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
     icecap = require('icecap').create();
