@@ -52,18 +52,35 @@ io.sockets.on('connection', function (socket) {
 	
 });
 
-console.log("Registering icecap message handler");
+/* Setup icecap */
+(function() {
 
-icecap.on('msg', function(tokens) {
-	console.log("Routing icecap message to web");
-	io.sockets.emit('msg', tokens);
+	console.log("Registering icecap message handler");
 	
-	// HTML formated msg
-	//var fn = jade.compile('string of jade', options);
-	io.sockets.emit('htmlmsg', '<div>Hello</div>');
+	icecap.on('msg', function(tokens) {
+		console.log("Routing icecap message to web");
+		io.sockets.emit('msg', tokens);
+		
+		// HTML formated msg
+		//var fn = jade.compile('string of jade', options);
+		io.sockets.emit('htmlmsg', '<div>Hello</div>');
+	
+	});
 
-});
+})(); // end of setup icecap
 
-app.listen(config.host, config.port);
-console.log("Express server listening on port %d in %s mode",
-	app.address().port, app.settings.env);
+/* Setup HTTP */
+(function() {
+
+	var port = config.port || 3000,
+	    host = config.host;
+	
+	if(host) app.listen(host, port);
+	else app.listen(port);
+	
+	console.log("Express server listening on port %d in %s mode",
+		app.address().port, app.settings.env);
+
+})(); // end of setup HTTP
+
+/* EOF */
