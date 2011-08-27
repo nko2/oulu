@@ -10,7 +10,7 @@ function init() {
 	});*/
 	
 	socket.on('msg', function (data) {
-		$('#ircrows').append('<div class="ircrow">&lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
+		$('#ircrows').append('<div class="ircrow">'+ data.time +': &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC
