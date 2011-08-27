@@ -1,2 +1,2 @@
 #!/bin/sh
-supervisor -w app.js
+supervisor -w . app.js
