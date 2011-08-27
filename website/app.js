@@ -47,7 +47,7 @@ app.configure('production', function() {
 
 io.configure('development', function(){
     io.set('log level', 100);
-    io.set('transports', config.transports);
+	io.set('transports', config.transports || ['websocket', 'xhr-polling']);
 });
 
 io.configure('production', function(){
