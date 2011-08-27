@@ -1,2 +1,2 @@
 #!/bin/sh
-supervisor -w . app.js
+NODE_ENV=development supervisor -w . app.js
