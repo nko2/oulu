@@ -5,10 +5,8 @@ function init() {
 	
 	//var socket = io.connect('http://localhost:3000');
 	var socket = io.connect();
-	/*socket.on('htmlmsg', function (data) {
-		$('#ircrows').append(data);
-	});*/
 	
+	// receive line from IRC
 	socket.on('msg', function (data) {
 		$('#ircrows').append('<div class="ircrow">'+ data.time +': &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
