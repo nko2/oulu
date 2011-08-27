@@ -7,5 +7,5 @@ div(id="rows")
 		span "bar"
 
 div(id="input")
-	form
-		input(type="text",id="prompt")
+	form(id="sendmsgform")
+		input(type="text",id="prompt",size=80,onchange='sendMsg()'")
