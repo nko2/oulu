@@ -2,7 +2,9 @@
  * Module dependencies.
  */
 
-var express = require('express'),
+var app = module.exports = {},
+    config = require('./safe-config.js'),
+    express = require('express'),
     sys = require('sys'),
     params = require('express-params'),
     namespace = require('express-namespace'),
@@ -11,52 +13,50 @@ var express = require('express'),
 
 params.extend(app);
 
-app.config = (function(config) {
-	
-	// Helpers
-	//app.dynamicHelpers({'config': config});
-	
-	// Configuration
-	app.configure(function() {
-		app.set('views', __dirname + '/views');
-		app.set('view engine', 'jade');
-		app.use(express.favicon());
-		app.use(express.logger({ format: ':date - :method :status :url' }));
-		app.use(express.bodyParser());
-		app.use(express.methodOverride());
-		app.use(express.cookieParser());
-		app.use(express.session({ secret: "keyboard cat" }));
-		app.use(app.router);
-		app.use(express.static(__dirname + '/public'));
+// Helpers
+//app.dynamicHelpers({'config': config});
+
+// Configuration
+app.configure(function() {
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'jade');
+	app.use(express.favicon());
+	app.use(express.logger({ format: ':date - :method :status :url' }));
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.session({ secret: "keyboard cat" }));
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('development', function() {
+	app.use(express.errorHandler({
+		dumpExceptions : true,
+		showStack : true
+	}));
+});
+
+app.configure('production', function() {
+	app.use(express.errorHandler());
+});
+
+io.configure('development', function(){
+    io.set('log level', 100);
+	io.set('transports', config.transports || ['websocket', 'xhr-polling']);
+});
+
+io.configure('production', function(){
+    io.set('transports', config.transports);
+});
+
+// Routes
+
+app.get('/', function(req, res) {
+	res.render('index', {
+		title : 'Express'
 	});
-	
-	app.configure('development', function() {
-		app.use(express.errorHandler({
-			dumpExceptions : true,
-			showStack : true
-		}));
-	});
-	
-	app.configure('production', function() {
-		app.use(express.errorHandler());
-	});
-	
-	io.configure('development', function(){
-	    io.set('log level', 100);
-		io.set('transports', config.transports || ['websocket', 'xhr-polling']);
-	});
-	
-	io.configure('production', function(){
-	    io.set('transports', config.transports);
-	});
-	
-	// Routes
-	
-	app.get('/', function(req, res) {
-		res.render('index', {
-			title : 'Express'
-		});
-	});
+});
 
 	io.sockets.on('connection', function (socket) {
 		
@@ -103,10 +103,8 @@ app.config = (function(config) {
 	});
 	*/
 
-}); // end of config
-
 /* Setup HTTP */
-app.listen = (function(config) {
+(function() {
 	var config = config || {},
 	    port = config.port || 3000,
 	    host = config.host;
@@ -114,6 +112,6 @@ app.listen = (function(config) {
 	else app.listen(port);
 	console.log("Express server listening on port %d in %s mode",
 		port, app.settings.env);
-}); // end of start HTTP
+})(); // end of start HTTP
 
 /* EOF */
