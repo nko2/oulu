@@ -2,8 +2,12 @@
  * Module dependencies.
  */
 
-var config = require('./config.js'),
-    express = require('express'),
+try {
+	var config = require('./config.js');
+} catch (e) {
+	var config = require('./config.sample.js');
+};
+var express = require('express'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
