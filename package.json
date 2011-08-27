@@ -4,6 +4,9 @@
   , "private": true
   , "dependencies": {
       "express": "2.4.4"
+    , "express-params": "*"
+    , "express-messages": "*"
+    , "express-namespace": "*"
     , "jade": ">= 0.0.1"
     , "socket.io": ">= 0.7"
   }
