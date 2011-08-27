@@ -12,6 +12,7 @@ try {
 if(!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 
 var express = require('express'),
+    sys = require('sys'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
@@ -67,6 +68,12 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function (socket) {
 	
+	console.log('CONNECTION!');
+	
+	socket.on('msg', function(msg) {
+		console.log( 'DEBUG msg: ' + sys.inspect( msg ) );
+	});
+
 	socket.on('input', function(msg) {
 		console.log("Routing message from web to icecap");
 		icecap.command(
