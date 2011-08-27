@@ -47,6 +47,14 @@ app.get('/', function(req, res) {
 	});
 });
 
+io.configure('development', function(){
+    io.set('transports', ['websocket']);
+});
+
+io.configure('production', function(){
+    io.set('transports', ['websocket']);
+});
+
 io.sockets.on('connection', function (socket) {
 	
 	socket.on('input', function(msg) {
