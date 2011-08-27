@@ -1,11 +1,18 @@
 /* Project Configuration File */
-var config = module.exports = {};
-
 /* Rename to config.js */
 
-/* Bind to these settings */
-//config.host = 'zeta1';
-config.port = 3000;
+var config = module.exports = {};
 
 // set socket.io transports
-config.transports = ['websocket', 'xhr-polling'];
+config.transports = ['xhr-polling'];
+config.port = 3000; // Shell service will use 3001 by default
+
+/*
+config.website = {
+	bind: {'port': 3000}
+};
+
+config.shell = {
+	bind = {'port': 3001}
+};
+*/
