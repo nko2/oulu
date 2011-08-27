@@ -64,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 		// HTML formated msg
 		//var fn = jade.compile('string of jade', options);
 		io.sockets.emit('htmlmsg', '<div>Hello</div>');
-	
+		
 	});
 
 })(); // end of setup icecap
