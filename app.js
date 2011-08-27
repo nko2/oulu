@@ -45,14 +45,6 @@ app.configure('production', function() {
 	app.use(express.errorHandler());
 });
 
-// Routes
-
-app.get('/', function(req, res) {
-	res.render('index', {
-		title : 'Express'
-	});
-});
-
 io.configure('development', function(){
     io.set('log level', 100);
     io.set('transports', ['xhr-polling']);
@@ -60,6 +52,14 @@ io.configure('development', function(){
 
 io.configure('production', function(){
     io.set('transports', ['xhr-polling']);
+});
+
+// Routes
+
+app.get('/', function(req, res) {
+	res.render('index', {
+		title : 'Express'
+	});
 });
 
 io.sockets.on('connection', function (socket) {
