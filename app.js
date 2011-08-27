@@ -2,11 +2,10 @@
  * Module dependencies.
  */
 
-var express = require('express');
-
-var app = module.exports = express.createServer();
-var io = require('socket.io').listen(app);
-var icecap = require('icecap').create();
+var express = require('express'),
+    app = module.exports = express.createServer(),
+    io = require('socket.io').listen(app),
+    icecap = require('icecap').create();
 
 // Configuration
 
@@ -39,30 +38,31 @@ app.get('/', function(req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-
-    socket.emit('news', { hello: 'world' });
-
-    socket.on('my other event', function (data) {
-	console.log(data);
-    });
-
-    socket.on('input', function(msg) {
-	console.log("Routing message from web to icecap");
-	icecap.command('msg', {
-	    'channel':'#oulu',
-	    'network':'freenode',
-	    'msg':foo
+	
+	socket.emit('news', { hello: 'world' });
+	
+	socket.on('my other event', function (data) {
+		console.log(data);
 	});
-    });
-
+	
+	socket.on('input', function(msg) {
+		console.log("Routing message from web to icecap");
+		icecap.command(
+			'msg', {
+				'channel':'#oulu',
+	    		'network':'freenode',
+	    		'msg':foo
+			});
+	});
+	
 });
 
 console.log("Registering icecap message handler");
 icecap.on('msg', function(tokens) {
-    console.log("Routing icecap message to web");
-    io.sockets.emit('msg', tokens);
+	console.log("Routing icecap message to web");
+	io.sockets.emit('msg', tokens);
 });
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode",
-	    app.address().port, app.settings.env);
+	app.address().port, app.settings.env);
