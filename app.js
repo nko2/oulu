@@ -39,20 +39,21 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function (socket) {
 
-    socket.emit('news', { hello: 'world' });
+	socket.emit('news', { hello: 'world' });
 
-    socket.on('my other event', function (data) {
-	console.log(data);
-    });
-
-    socket.on('input', function(msg) {
-	console.log("Routing message from web to icecap");
-	icecap.command('msg', {
-	    'channel':'#oulu',
-	    'network':'freenode',
-	    'msg':foo
+	socket.on('my other event', function (data) {
+		console.log(data);
 	});
-    });
+
+	socket.on('input', function(msg) {
+		console.log("Routing message from web to icecap");
+		icecap.command(
+			'msg', {
+				'channel':'#oulu',
+	    		'network':'freenode',
+	    		'msg':foo
+			});
+	});
 
 });
 
