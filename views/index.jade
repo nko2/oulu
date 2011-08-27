@@ -1,10 +1,5 @@
 h1 Web-chat
 
-script(type='text/javascript')
-	socket.on('htmlmsg', function(htmlmsg) {
-		document.getElementById("rows").innerHTML += htmlmsg;
-	}
-
 div(id="rows")
 	div(class="row")
 		span "foo"
