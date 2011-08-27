@@ -2,9 +2,10 @@
  * Module dependencies.
  */
 
-var express = require('express'),
+var config = require('config'),
+    express = require('express'),
     app = module.exports = express.createServer(),
-    io = require('socket.io').listen(app),
+    io = require('socket.io').listen(app);
     icecap = require('icecap').create();
 
 // Configuration
@@ -52,11 +53,17 @@ io.sockets.on('connection', function (socket) {
 });
 
 console.log("Registering icecap message handler");
+
 icecap.on('msg', function(tokens) {
 	console.log("Routing icecap message to web");
 	io.sockets.emit('msg', tokens);
+	
+	// HTML formated msg
+	//var fn = jade.compile('string of jade', options);
+	io.sockets.emit('htmlmsg', '<div>Hello</div>');
+
 });
 
-app.listen(3000);
+app.listen(config.host, config.port);
 console.log("Express server listening on port %d in %s mode",
 	app.address().port, app.settings.env);
