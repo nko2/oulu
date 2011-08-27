@@ -2,7 +2,7 @@
 
 /* Shorter format */
 function $(name) {
-	return document.getElementByID(name);
+	return document.getElementById(name);
 }
 
 /* Init window */
