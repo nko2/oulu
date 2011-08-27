@@ -49,11 +49,11 @@ app.get('/', function(req, res) {
 
 io.configure('development', function(){
     io.set('log level', 100);
-    io.set('transports', ['flashsocket','websocket']);
+    io.set('transports', ['xhr-polling']);
 });
 
 io.configure('production', function(){
-    io.set('transports', ['flashsocket','websocket']);
+    io.set('transports', ['xhr-polling']);
 });
 
 io.sockets.on('connection', function (socket) {
