@@ -72,7 +72,10 @@ io.sockets.on('connection', function (socket) {
 		
 		// HTML formated msg
 		//var fn = jade.compile('string of jade', options);
-		io.sockets.emit('htmlmsg', '<div>Hello</div>');
+		
+		// *;msg;id=234442;time=1314424203;network=freenode;mypresence=jheusala2;channel=#oulu;msg=Hello world ABCXXXXXX;presence=jheusala;address=jhh@jhh.me;user=jhh
+
+		io.sockets.emit('htmlmsg', '<div>&gt;'+tokens.presence + '&lt; ' + tokens.msg+'</div>');
 		
 	});
 
