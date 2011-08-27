@@ -67,10 +67,15 @@ app.get('/', function(req, res) {
 
 io.sockets.on('connection', function (socket) {
 	
-	console.log('CONNECTION!');
+	console.log('DEBUG: CONNECTION!');
 	
 	socket.on('icecap-event', function(name, tokens) {
-		console.log( 'socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens.msg ) );
+		console.log( 'DEBUG: socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+		socket.emit('icecap-event', name, tokens);
+	});
+
+	socket.on('icecap.command', function(name, tokens) {
+		console.log( 'DEBUG: socket.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
 	});
 
 		/*

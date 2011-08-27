@@ -9,13 +9,14 @@ function init() {
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
 		if(name !== 'msg') return;
+		console.log('icecap-event received: ' + name);
 		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('icecap.command', 'msg', { 'msg': $('#prompt').val() } );
+		socket.emit('icecap.command', 'msg', { 'presence': 'jheusala2', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
 		$('#prompt').val('');
