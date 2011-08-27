@@ -8,7 +8,7 @@ var app = module.exports = {},
 website_app.config(config.website);
 shell_app.config(config.shell);
 
-website_app.listen( (config.website && config.website.bind) || {'port':3001} );
-shell_app.listen( (config.shell && config.shell.bind) || {'port':3001} );
+website_app.listen( config.website.bind );
+shell_app.listen( config.shell.bind );
 
 /* EOF */
