@@ -77,7 +77,6 @@ io.sockets.on('connection', function (socket) {
 	
 	icecap.on('msg', function(tokens) {
 		console.log("Routing icecap message to web");
-		io.sockets.emit('msg', tokens);
 		
 		// HTML formated msg
 		//var fn = jade.compile('string of jade', options);
