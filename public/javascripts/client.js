@@ -5,9 +5,12 @@ function init() {
 	
 	//var socket = io.connect('http://localhost:3000');
 	var socket = io.connect();
-	socket.on('htmlmsg', function (data) {
-		console.log('Writing to page!');
+	/*socket.on('htmlmsg', function (data) {
 		$('#ircrows').append(data);
+	});*/
+	
+	socket.on('msg', function (data) {
+		$('#ircrows').append('<div class="ircrow">&lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
 	});
 	
 	// send line to IRC

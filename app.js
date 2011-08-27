@@ -47,11 +47,11 @@ app.configure('production', function() {
 
 io.configure('development', function(){
     io.set('log level', 100);
-    io.set('transports', ['xhr-polling']);
+    io.set('transports', config.transports);
 });
 
 io.configure('production', function(){
-    io.set('transports', ['xhr-polling']);
+    io.set('transports', config.transports);
 });
 
 // Routes
@@ -89,7 +89,9 @@ io.sockets.on('connection', function (socket) {
 		
 		// *;msg;id=234442;time=1314424203;network=freenode;mypresence=jheusala2;channel=#oulu;msg=Hello world ABCXXXXXX;presence=jheusala;address=jhh@jhh.me;user=jhh
 
-		io.sockets.emit('htmlmsg', '<div class="ircrow">&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
+		io.sockets.emit('msg', tokens); // parsitaan clientillä
+
+		//io.sockets.emit('htmlmsg', '<div class="ircrow">&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
 		
 	});
 
