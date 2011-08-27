@@ -1,9 +1,9 @@
 /* Client Side JavaScript */
 
 /* Shorter format */
-function $(name) {
+/*function $(name) {
 	return document.getElementById(name);
-}
+}*/
 
 /* Init window */
 function init() {
@@ -12,14 +12,16 @@ function init() {
 	var socket = io.connect();
 	socket.on('htmlmsg', function (data) {
 		console.log('Writing to page!');
-		$('rows').innerHTML += data;
+		$('#rows').append(data);
 	});
 	
 }
-/*function sendMsg() {
 
-}*/
-
-window.onload = init;
+// jquery
+$(document).ready(function() {
+	init();
+	
+	
+});
 
 /* EOF */
