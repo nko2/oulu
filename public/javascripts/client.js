@@ -1,10 +1,5 @@
 /* Client Side JavaScript */
 
-/* Shorter format */
-/*function $(name) {
-	return document.getElementById(name);
-}*/
-
 /* Init window */
 function init() {
 	
@@ -15,13 +10,19 @@ function init() {
 		$('#rows').append(data);
 	});
 	
+	// send line to IRC
+	$('#sendmsgform').submit(function (event) {
+		event.preventDefault();
+		socket.emit('input', $('#prompt').val());
+		
+		// clear the text field
+		$('#prompt').val('');
+	});
 }
 
 // jquery
 $(document).ready(function() {
-	init();
-	
-	
+	init();	
 });
 
 /* EOF */

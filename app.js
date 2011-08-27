@@ -70,7 +70,7 @@ io.sockets.on('connection', function (socket) {
 			'msg', {
 				'channel':'#oulu',
 	    		'network':'freenode',
-	    		'msg':'Hello world'
+	    		'msg': msg
 			});
 	});
 	
