@@ -4,7 +4,7 @@ var init = require('init'),
     config = require('./config.js');
 
 init.simple({
-	pidfile : config.pidfile || './myprog.pid',
+	pidfile : config.pidfile || './node-icecapd.pid',
 	logfile : config.logfile,
 	command : process.argv[3],
 	run     : function () {
