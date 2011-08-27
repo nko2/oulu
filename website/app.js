@@ -2,11 +2,14 @@
  * Module dependencies.
  */
 
+var config;
 try {
-	var config = require('./config.js');
+	config = require('./config.js');
 } catch (e) {
-	var config = require('./config.sample.js');
+	config = require('./config.sample.js');
 };
+
+if(!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 
 var express = require('express'),
     params = require('express-params'),
