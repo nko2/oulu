@@ -48,11 +48,11 @@ app.get('/', function(req, res) {
 });
 
 io.configure('development', function(){
-    io.set('transports', ['websocket']);
+    io.set('transports', ['flashsocket']);
 });
 
 io.configure('production', function(){
-    io.set('transports', ['websocket']);
+    io.set('transports', ['flashsocket']);
 });
 
 io.sockets.on('connection', function (socket) {
