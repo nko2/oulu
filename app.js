@@ -7,7 +7,7 @@ var config = require('./config.js'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
-//    io = require('socket.io').listen(app),
+    io = require('socket.io').listen(app),
     icecap = require('icecap').create();
 
 params.extend(app);

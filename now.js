@@ -7,6 +7,8 @@ var config = require('./config.js'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
+    nowjs = require("now"),
+    everyone = nowjs.initialize(app),
     icecap = require('icecap').create();
 
 params.extend(app);
@@ -46,9 +48,6 @@ app.get('/', function(req, res) {
 		title : 'Express'
 	});
 });
-
-var nowjs = require("now");
-var everyone = nowjs.initialize(app);
 
 
 /*
@@ -91,6 +90,8 @@ io.sockets.on('connection', function (socket) {
 
 		//io.sockets.emit('htmlmsg', '<div>&lt;'+tokens.presence + '&gt; ' + tokens.msg+'</div>');
 		
+		everyone.now.receiveMessage(, message);
+
 	});
 
 })(); // end of setup icecap

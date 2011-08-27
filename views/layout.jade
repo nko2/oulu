@@ -3,12 +3,12 @@ html(lang="en")
 	head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/style.css')
-		// script(src='/javascripts/client.js')
-		// script(src='/socket.io/socket.io.js')
-		script(type="text/javascript",src="/nowjs/now.js")
-		script(type="text/javascript")
-			now.ready(function(){
-				// "Hello World!" will print on server
-				now.logStuff("Hello World!");
-			});
+		script(src='/javascripts/client.js')
+		script(src='/socket.io/socket.io.js')
+		// script(type="text/javascript",src="/nowjs/now.js")
+		// script(type="text/javascript")
+		// 	now.ready(function(){
+		// 		// "Hello World!" will print on server
+		// 		now.logStuff("Hello World!");
+		// 	});
 	body!= body
