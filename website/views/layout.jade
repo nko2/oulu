@@ -25,15 +25,15 @@ html(lang="en")
 							a(href='http://nodeknockout.com/teams/oulu',target='_blank') NKO Oulu
 							| .
 					//a(href="#settings") settings
-					div(class="modal" style="position: relative; top: auto; left: auto; margin: 0 auto; z-index: 1")
+					div(class="modal",style="position: absolute; top: 40px; left: 40%; margin: 0 auto; z-index: 1")
 						div(class="modal-header")
-							 h3 Modal Heading
-								a(href="#" class="close")&times;
+							h3 Settings
 						div(class="modal-body")
-							p One fine body
-						div(class="modal-footer)
-							a(href="#" class="btn primary")Primary
-							a(href="#" class="btn secondary")Secondary
+							form(id="settingsform")
+								input(type="text",id="nick",placeholder="set your nick here",autocomplete='off')
+						div(class="modal-footer")
+							a(href="#",class="btn primary") Commit
+							a(href="#",class="btn secondary") Cancel
 					//a(href="/login") login
 					//|  or 
 					//a(href="/setup") setup
