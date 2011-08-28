@@ -1,6 +1,6 @@
 {
-  "name": "nko-oulu-shell",
-  "description": "Node with icecapd",
+  "name": "icecapd",
+  "description": "Node socket.io proxy for local icecapd for ",
   "version": "0.0.1",
   "repository": {
     "type": "git",

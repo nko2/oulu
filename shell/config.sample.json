@@ -1,0 +1,5 @@
+{
+	'iotarget': 'http://localhost:3000/shell',
+	'pidfile': './node-icecapd.pid',
+	'logfile': './node-icecapd.log'
+}
