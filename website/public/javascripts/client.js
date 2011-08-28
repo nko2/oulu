@@ -15,6 +15,9 @@ function init() {
 	if (! $.cookie('the_magic_oulu_cookie')) {
 		console.log('Requesting api key from server');
 		socket.emit('create');
+	} else {
+		console.log('Existing cookie found, sending apikey to server');
+		socket.emit('join',  $.cookie('the_magic_oulu_cookie'));
 	};
 	
 	// receive line from IRC
