@@ -64,14 +64,14 @@ init.simple({
 		    icecap = require('icecap').create(),
 		    website_socket;
 		
+		function icecap_event(name, tokens) {
+			if(name !== 'msg') return;
+			util.log('Sending icecap-event to website...');
+			website_socket.emit('icecap-event', name, tokens);
+		}
+			
 		function do_connection() {
 			website_socket = io.connect(config.iotarget || 'http://nko-oulu.kapsi.fi/shell');
-			
-			function icecap_event(name, tokens) {
-				if(name !== 'msg') return;
-				util.log('Sending icecap-event to website...');
-				website_socket.emit('icecap-event', name, tokens);
-			}
 			
 			// Let's log every icecap event
 			//icecap.on('event', function(name, tokens) {
