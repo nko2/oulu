@@ -1,6 +1,6 @@
 {
   "name": "icecapd",
-  "description": "Node socket.io proxy for local icecapd for ",
+  "description": "Node proxy for local icecapd",
   "version": "0.0.1",
   "repository": {
     "type": "git",
