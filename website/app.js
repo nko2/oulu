@@ -52,7 +52,7 @@ app.configure('production', function() {
 });
 
 io.configure('development', function(){
-    io.set('log level', 7);
+    //io.set('log level', 7);
 	io.set('transports', config.transports || ['websocket', 'xhr-polling']);
 });
 
