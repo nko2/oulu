@@ -65,10 +65,10 @@ function init() {
 			get_avatar(data['address'], function(url, bigurl) {
 				function escape(str) { return $('<span/>').text(str).html(); }
 				function img() {
-					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
+					if(url) return '<a class="imgurl" href="'+bigurl+'"><img style="float: left; padding-right: 8px;" src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 					return '';
 				}
-				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
+				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+ '<div style="">'+data.channel+'</div>'+
 					escape(HHmm(data.time))+
 					' &lt;'+
 					escape(data.presence)+
