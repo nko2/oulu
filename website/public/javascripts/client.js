@@ -6,9 +6,10 @@ function init() {
 	var socket = io.connect('/client'),
 	    avatars = {},
 	    big_avatars = {},
-	    _me = {};
+	    _me = {'networks':{}};
 	
 	function update_me(data) {
+		// Select first mypresence
 		if((!_me.mypresence) && data.mypresence) {
 			_me.mypresence = data.mypresence;
 			_me.network = data.network;
@@ -123,13 +124,19 @@ function init() {
                     '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 		};
-
 	});
 	
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-	        handle_msg({ 'time': new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() });
+	        handle_msg({
+		    'time': new Date().getTime(),
+		    'presence': _me && _me.mypresence || 'Me',
+		    'network' : _me && _me.network || 'freenode',
+		    'address' : _me && _me.address || 'unkown@example.tld',
+		    'channel' : '#node.js',
+		    'msg'     : $('#prompt').val()
+		});
 		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
