@@ -32,6 +32,10 @@ function init() {
 		//$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
 		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ make_urls(data.msg) +'</div>');
+		
+		if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
+			$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+		};
 	});
 	
 	// send line to IRC
@@ -60,9 +64,10 @@ $(document).ready(function() {
 	});
 
 	$('#commit-button').click(function() {
-		$('.modal').toggle('slow', function() {
+		$('.modal').slideToggle('slow', function() {
  		});
 	});
+
 });
 
 /* EOF */

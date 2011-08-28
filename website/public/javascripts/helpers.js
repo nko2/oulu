@@ -19,10 +19,14 @@ function HHmm(time) {
 };
 
 function make_urls(text) {
-	//var regex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 	var regex = /(https?:\/\/[^\s]+)/g;
+	var regex2 = /(.*).(jpg|gif|jpeg|png)$/;
 	
 	return text.replace(regex, function(url) {
-		return '<a href="' + url + '">' + url + '</a>';
+		if (url.match(regex2)) {
+			return '<a class="imgurl" href="' + url + '">' + url + '</a>';
+		} else {
+			return '<a href="' + url + '">' + url + '</a>';
+		};
 	});
 };
