@@ -29,7 +29,7 @@ function init() {
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
 		console.log("icecap-event received: '" + name + "'");
-		$('#ircrows').append('<div class="ircrow">test</div>');
+		//$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
 		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ make_urls(data.msg) +'</div>');
 	});

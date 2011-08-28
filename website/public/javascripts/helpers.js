@@ -19,10 +19,10 @@ function HHmm(time) {
 };
 
 function make_urls(text) {
-	//var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-	var urlRegex = /(https?:\/\/[^\s]+)/g;
+	//var regex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+	var regex = /(https?:\/\/[^\s]+)/g;
 	
-	return text.replace(regexp, function(url) {
-		return '<a href=' + url + '">' + url + '</a>';
+	return text.replace(regex, function(url) {
+		return '<a href=' + url + '>' + url + '</a>';
 	});
 };
