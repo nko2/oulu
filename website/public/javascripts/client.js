@@ -7,11 +7,13 @@ function init() {
 	    avatars = {},
 	    big_avatars = {};
 	
+	function escape(str) { return $('<span/>').text(str).html(); }
+	
 	/* */
 	socket.on('status-reply', function(backends) {
 		var b;
 		for(b in backends) if(backends.hasOwnProperty(b)) {
-			$('#backends').html('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="" />');
+			$('#backends').html('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="'+escape(b)+'" />');
 		}
 	});
 	
@@ -69,7 +71,6 @@ function init() {
 		if(name == 'msg') {
 		
 			get_avatar(data['address'], function(url, bigurl) {
-				function escape(str) { return $('<span/>').text(str).html(); }
 				function img() {
 					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 					return '';
