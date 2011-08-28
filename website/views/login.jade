@@ -1,0 +1,21 @@
+div(class="row")
+	div(class="span15 columns offset1")
+		div(id="input")
+			h4 Log In
+			form(id="loginform")
+				input(type="text",name='key',id="prompt",placeholder="Your API key",autocomplete='off')
+				br
+				br
+				button(type='submit', class='button positive')
+					| Login
+				a(href='/setup', class='button negative')
+					| Request new key
+			hr
+			p
+				|To simplify the demo we use a simple API keyword to identify 
+				|our users. Our website automatically creates and saves it in 
+				|your browser cookie.
+			p
+				|You need it for re-login to existing session on 
+				|another device or browser. You may also use it to setup your shell 
+				|account.
