@@ -85,14 +85,17 @@ function init() {
 	});
 
 	$('#timelinetab').click(function() {
-		$('.tab').hide();
-		$('#timeline').show();
+		$('.tabcontent').hide();
+		$('#ircrows').show();
+		$('.tab').removeClass('active');
+		$('#timelinetab').addClass('active');
 	});
 
 	$('#guidetab').click(function() {
-		$('.tab').hide();
+		$('.tabcontent').hide();
 		$('#guide').show();
-		//$('#guidetab:parent').addClass('active');
+		$('.tab').removeClass('active');
+		$('#guidetab').addClass('active');
 	});
 
 }
