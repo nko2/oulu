@@ -10,9 +10,8 @@ function init() {
 	/* */
 	socket.on('status-reply', function(backends) {
 		var b;
-		$('#backends').innerHTML = $('<span/>');
 		for(b in backends) if(backends.hasOwnProperty(b)) {
-			$('#backends').append('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="" />');
+			$('#backends').html('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="" />');
 		}
 	});
 	
@@ -72,16 +71,16 @@ function init() {
 			get_avatar(data['address'], function(url, bigurl) {
 				function escape(str) { return $('<span/>').text(str).html(); }
 				function img() {
-					if(url) return '<a class="imgurl" href="'+bigurl+'"><img style="float: left; padding-right: 8px;" src="'+url+'" title="'+escape(data['address'])+'"/></a>';
+					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 					return '';
 				}
-				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+ '<div style="">'+data.channel+'</div>'+
+				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
 					escape(HHmm(data.time))+
-					' &lt;<span style="font-weight: bold; color: black;">'+
+					' &lt;'+
 					escape(data.presence)+
-					'</span>&gt; <span style="color: black;">'+
+					'&gt; '+
 					make_urls(escape(data.msg))+
-					'</span><hr/></div>');
+					'<hr/></div>');
 				$('.ircrow').fadeIn('slow');
 				if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 				if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
