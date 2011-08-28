@@ -31,7 +31,7 @@ function init() {
 		console.log("icecap-event received: '" + name + "'");
 		$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
-		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ data.msg +'</div>');
+		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ make_urls(data.msg) +'</div>');
 	});
 	
 	// send line to IRC
