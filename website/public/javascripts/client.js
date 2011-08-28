@@ -53,7 +53,7 @@ function init() {
 		get_avatar(data['address'], function(url, bigurl) {
 			function escape(str) { return $('<span/>').text(str).html(); }
 			function img() {
-				if(url) return '<a class="avatorimgurl" src="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
+				if(url) return '<a class="imgurl" src="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 				return '';
 			}
 			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
@@ -64,7 +64,7 @@ function init() {
 				make_urls(escape(data.msg))+
 				'<hr/></div>');
 			$('.ircrow').fadeIn('slow');
-			if(url) $('.avatorimgurl').imgPreview({ imgCSS: { width: 200 } });
+			if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
 				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 			};
