@@ -55,7 +55,7 @@ var init = require('init'),
 /* Setup standard init CLI */
 init.simple({
 	pidfile : config.pidfile || path.resolve(config.dir, 'run.pid'),
-	logfile : config.logfile,
+	logfile : config.logfile && path.resolve(config.logfile),
 	command : process.argv[2],
 	run     : function () {
 		
@@ -66,6 +66,12 @@ init.simple({
 		
 		function do_connection() {
 			website_socket = io.connect(config.iotarget || 'http://localhost:3000/shell'),
+			
+			function icecap_event(name, tokens) {
+				if(name !== 'msg') return;
+				util.log('Sending icecap-event to website...');
+				website_socket.emit('icecap-event', name, tokens);
+			}
 			
 			// Let's log every icecap event
 			//icecap.on('event', function(name, tokens) {
@@ -85,11 +91,7 @@ init.simple({
 				website_socket.once('joined', function() {
 					util.log('Joined to website');
 					
-					icecap.on('event', function(name, tokens) {
-						if(name !== 'msg') return;
-						util.log('Sending icecap-event to website...');
-						website_socket.emit('icecap-event', name, tokens);
-					});
+					icecap.on('event', icecap_event);
 					
 					website_socket.on('icecap.command', function(name, tokens) {
 						util.log("DEBUG: website_socket.on(client-event): " + sys.inspect(name) + ": " + sys.inspect(tokens) );
@@ -106,11 +108,14 @@ init.simple({
 			// Lets handle succesful connection
 			website_socket.on('disconnect', function () {
 				util.log('Webserver disconnected!');
-				website_socket.removeListeners();
+				website_socket.removeAllListeners();
+				icecap.removeListener('event', icecap_event);
 				do_connection();
 			});
 			
 		} // do_connection
+		
+		do_connection();
 	}
 });
 
