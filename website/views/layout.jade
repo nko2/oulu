@@ -35,8 +35,9 @@ html(lang="en")
 						//	h3 Preferences
 						div(class="modal-body",style="margin-bottom: 110px;")
 							form(id="settingsform",style="float: left; margin: 0,0,0,0;")
-								p nick
-								input(type="text",id="nick",placeholder="set your nick here",autocomplete='off')
+								p nick  
+									span(style="color: red; font-size: 8pt;") Sorry, nick changing isn't implemented yet!
+								input(type="text",id="nick",class="uneditable-input",placeholder="set your nick here",autocomplete='off')
 								p api key
 								input(type="text",id="apikey",placeholder="api key",autocomplete='off')
 						div(class="modal-footer")
