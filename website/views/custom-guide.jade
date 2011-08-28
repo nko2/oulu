@@ -1,0 +1,53 @@
+h3 Required steps to setup your own shell service
+	ul
+		li
+			:markdown
+				Install [Node.js](http://nodejs.org) 0.4.11 or newer
+		li
+			:markdown
+				Install [npm](https://github.com/isaacs/npm)
+		li
+			:markdown
+				Install [icecapd](http://icecap.irssi2.org)
+		li
+			:markdown
+				Type command `npm install icecapdjs`
+		li
+			:markdown
+				Set `apikey` from preferences: `icecapdjs config-set apikey ab2cd1ef3gh4g12412`
+		li
+			:markdown
+				icecapd start
+h3 There is also these commands
+	ul
+		li
+			:markdown
+				List configuration settings: `icecapdjs config`
+		li
+			:markdown
+				To enable logging to a file: `icecapdjs config-set logfile /path/to/file.log`
+		li
+			:markdown
+				To disable `logfile`, just ommit the value: `./icecapd.js config-set logfile`
+h3 Installing icecapd manually
+pre
+	| hg clone http://hg.dovecot.org/icecap/
+	| cd icecap
+	| ./autogen.sh
+	| mkdir -p $HOME/opt/icecap
+	| ./configure --prefix=$HOME/opt/icecap
+	| make
+	| make install
+	| echo 'PATH=$PATH:$HOME/opt/icecap/bin' >> $HOME/.profile
+	| PATH=$PATH:$HOME/opt/icecap/bin
+h3 Installing node manually
+pre
+	| wget http://nodejs.org/dist/node-v0.4.11.tar.gz
+	| tar zxf node-v0.4.11.tar.gz
+	| cd node-v0.4.11
+	| mkdir -p $HOME/opt/node
+	| ./configure --prefix=$HOME/opt/node
+	| make
+	| make install
+	| echo 'PATH=$PATH:$HOME/opt/node/bin' >> $HOME/.profile
+	| PATH=$PATH:$HOME/opt/node/bin

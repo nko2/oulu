@@ -4,6 +4,7 @@
 var init = require('init'),
     fs = require('fs'),
     path = require('path'),
+    util = require('util'),
     sys = require('sys'),
     config = {};
 
@@ -58,6 +59,11 @@ init.simple({
 	logfile : config.logfile && path.resolve(config.logfile),
 	command : process.argv[2],
 	run     : function () {
+		
+		// Output debug for memory usage
+		setInterval(function() {
+			console.log('DEBUG: Memory usage: ' + util.inspect(process.memoryUsage()));
+		}, 5000);
 		
 		var io = require('socket.io-client'),
 		    util = require('util'),
