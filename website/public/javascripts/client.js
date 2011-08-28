@@ -11,7 +11,7 @@ function init() {
 	function get_avatar(email, fn) {
 		if(avatars[email]) return fn(avatars[email]);
 		function do_set_gravatar(email, url, options) {
-			if(options.s <= 50) {
+			if(options && (options.s <= 50) ) {
 				avatars[email] = url;
 			} else {
 				big_avatars[email] = url;
@@ -52,18 +52,18 @@ function init() {
 		
 		get_avatar(data['address'], function(url) {
 			var avator;
-			function f(str) { return $('<span/>').text(str).html(); }
+			function escape(str) { return $('<span/>').text(str).html(); }
 			function img() {
 				avator = true;
-				if(url) return '<img class="avatorimgurl" src="'+url+'" title="'+f(data['address'])+'"/> ';
+				if(url) return '<img class="avatorimgurl" src="'+url+'" title="'+escape(data['address'])+'"/> ';
 				return '';
 			}
 			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+
-				f(HHmm(data.time))+
+				escape(HHmm(data.time))+
 				' &lt;'+
-				f(data.presence)+
+				escape(data.presence)+
 				'&gt; '+
-				make_urls(f(data.msg))+
+				make_urls(escape(data.msg))+
 				'<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 			if(avator) $('.avatorimgurl').imgPreview({ imgCSS: { width: 200 } });
