@@ -135,6 +135,7 @@ lib.create = (function(fn) {
 					_sessions[apikey] = new Session(apikey);
 				}
 				
+				fn && fn(undefined, _sessions[apikey]);
 			});
 		} else {
 			if(_sessions[apikey] === undefined) {
