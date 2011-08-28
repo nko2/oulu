@@ -76,22 +76,24 @@ function init() {
 		event.preventDefault();
 		socket.emit('login', $('#nick').val());
 	});*/
-}
-
-// jquery
-$(document).ready(function() {
-	init();	
-
+	
+	$('#commit-button').click(function() {
+		$('.modal').slideToggle('slow', function() {
+			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'mynick' } );
+ 		});
+	});
+	
 	$('#toggle-button').click(function() {
 		$('.modal').slideToggle('slow', function() {
  		});
 	});
 
-	$('#commit-button').click(function() {
-		$('.modal').slideToggle('slow', function() {
- 		});
-	});
+}
 
+
+// jquery
+$(document).ready(function() {
+	init();	
 });
 
 /* EOF */
