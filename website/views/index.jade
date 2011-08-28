@@ -12,9 +12,13 @@ div(class="row")
 		ul(class="tabs")
 			li(id="timelinetab",class="tab active")
 				a(href="#") Timeline
+			li(id="introtab",class="tab")
+				a(href="#") Introduction
 			li(id="guidetab",class="tab")
 				a(href="#") Custom guide
 		div(id="ircrows",class="tabcontent")
+		div(id="intro",class="tabcontent",style="display: none;")
+			!= partial('intro')
 		div(id="guide",class="tabcontent",style="display: none;")
 			!= partial('custom-guide')
 	//div(class="span2 columns offset1")

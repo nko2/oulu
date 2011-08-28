@@ -200,6 +200,13 @@ function init() {
 		$('#guidetab').addClass('active');
 	});
 
+	$('#introtab').click(function() {
+		$('.tabcontent').hide();
+		$('#intro').show();
+		$('.tab').removeClass('active');
+		$('#introtab').addClass('active');
+	});
+
 }
 
 
