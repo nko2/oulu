@@ -64,6 +64,13 @@ Running icecapd
 Configuring it in crontab
 -------------------------
 
+You can save 
+
+	* *    * * *   /path/to/icecapd.js status >/dev/null || node icecapd.js start
+
+Configuration Settings
+--------------------
+
 List configuration settings:
 
 	./icecapd.js config
