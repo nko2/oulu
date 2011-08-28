@@ -70,14 +70,14 @@ init.simple({
 		    icecap = require('icecap').create(),
 		    website_socket;
 		
-		function icecap_event(name, tokens) {
-			//if(name !== 'msg') return;
-			util.log('Sending icecap-event to website...');
-			website_socket.emit('icecap-event', name, tokens);
-		}
-			
 		function do_connection() {
-			website_socket = io.connect(config.iotarget || 'http://nko-oulu.kapsi.fi/shell');
+			if(!website_socket) website_socket = io.connect(config.iotarget || 'http://nko-oulu.kapsi.fi/shell');
+			
+			function icecap_event(name, tokens) {
+				//if(name !== 'msg') return;
+				util.log('Sending icecap-event to website...');
+				website_socket.emit('icecap-event', name, tokens);
+			}
 			
 			// Let's log every icecap event
 			//icecap.on('event', function(name, tokens) {
@@ -114,9 +114,12 @@ init.simple({
 			// Lets handle succesful connection
 			website_socket.once('disconnect', function () {
 				util.log('Webserver disconnected!');
+				// error connect joined icecap.command disconnect
 				website_socket.removeAllListeners('error');
 				website_socket.removeAllListeners('connect');
+				website_socket.removeAllListeners('joined');
 				website_socket.removeAllListeners('icecap.command');
+				website_socket.removeAllListeners('disconnect');
 				icecap.removeListener('event', icecap_event);
 				do_connection();
 			});
