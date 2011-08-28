@@ -65,7 +65,7 @@ init.simple({
 		    website_socket;
 		
 		function do_connection() {
-			website_socket = io.connect(config.iotarget || 'http://localhost:3000/shell');
+			website_socket = io.connect(config.iotarget || 'http://nko.kapsi.fi/shell');
 			
 			function icecap_event(name, tokens) {
 				if(name !== 'msg') return;
