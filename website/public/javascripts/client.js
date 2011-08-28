@@ -9,7 +9,7 @@ function init() {
 	/* Get avatar */
 	function get_avatar(email, fn) {
 		if(avatars[email]) fn(avatars[email]);
-		socket.once('set-gravatar', function(url) {
+		socket.once('set-gravatar', function(email, url) {
 			avatars[email] = url;
 			fn(avatars[email]);
 		});
