@@ -23,9 +23,9 @@ function make_urls(text) {
 	
 	return text.replace(regex, function(url) {
 		if (url.match(/(.*).(jpg|gif|jpeg|png)$/)) {
-			return '<a class="imgurl" href="' + url + '">' + url + '</a>';
+			return '<a class="imgurl" href="' + url + '" target="_blank">' + url + '</a>';
 		} else {
-			return '<a href="' + url + '">' + url + '</a>';
+			return '<a href="' + url + '" target="_blank">' + url + '</a>';
 		};
 	});
 };

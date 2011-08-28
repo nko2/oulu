@@ -84,6 +84,17 @@ function init() {
  		});
 	});
 
+	$('#timelinetab').click(function() {
+		$('.tab').hide();
+		$('#timeline').show();
+	});
+
+	$('#guidetab').click(function() {
+		$('.tab').hide();
+		$('#guide').show();
+		//$('#guidetab:parent').addClass('active');
+	});
+
 }
 
 
