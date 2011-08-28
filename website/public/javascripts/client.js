@@ -11,6 +11,11 @@ function init() {
 		console.log('Magic cookie set with apikey '+ apikey);
 	});
 	
+	socket.on('rejected-apikey') {
+		console.log('api key rejected, requesting new api key from server');
+		socket.emit('create');
+	};
+	
 	// request api key if cookie not found
 	if (! $.cookie('the_magic_oulu_cookie')) {
 		console.log('Requesting api key from server');
