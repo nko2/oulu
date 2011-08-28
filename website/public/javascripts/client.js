@@ -70,9 +70,9 @@ function init() {
 				}
 				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+ '<div style="">'+data.channel+'</div>'+
 					escape(HHmm(data.time))+
-					' &lt;'+
+					' &lt;<span style="font-weight: bold;">'+
 					escape(data.presence)+
-					'&gt; '+
+					'</span>&gt; '+
 					make_urls(escape(data.msg))+
 					'<hr/></div>');
 				$('.ircrow').fadeIn('slow');
