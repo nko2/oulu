@@ -61,7 +61,7 @@ app.get('/setup', function(req, res) {
 });
 
 /* Temporary Database for users in memory */
-(function UserDatabase() {
+var UserDatabase = (function UserDatabase() {
 	
 	/* Constructor */
 	function UserDatabase() {
