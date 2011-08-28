@@ -3,8 +3,12 @@
  */
 
 /* Temporary in memory database for User Sessions */
-var _sessions = [];
-var lib = module.exports = {};
+var _sessions = [],
+    lib = module.exports = {},
+    config = require('./safe-config.js'),
+    cradle = require('cradle'),
+    connection = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options),
+    users_db = connection.database('users');
 
 
 /* Session constructor */

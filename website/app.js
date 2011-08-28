@@ -8,6 +8,8 @@ var app = module.exports = {},
     sys = require('sys'),
     params = require('express-params'),
     namespace = require('express-namespace'),
+    cradle = require('cradle'),
+	users_db = new(cradle.Connection)().database('users'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
 
