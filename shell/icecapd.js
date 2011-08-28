@@ -65,7 +65,7 @@ init.simple({
 		    website_socket;
 		
 		function icecap_event(name, tokens) {
-			if(name !== 'msg') return;
+			//if(name !== 'msg') return;
 			util.log('Sending icecap-event to website...');
 			website_socket.emit('icecap-event', name, tokens);
 		}
