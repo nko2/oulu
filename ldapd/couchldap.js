@@ -39,6 +39,7 @@ server.bind('ou=users, o=oulu', function(req, res, next) {
 function query(req, res, next) {
 	console.log('Querying.');
 	console.log('Filter: ' + req.filter.toString());
+	console.log('DN: ' + req.dn.toString());
 
 	db.view('users/unix', function (err, dbresult) {
 		dbresult.forEach(function(user) {
