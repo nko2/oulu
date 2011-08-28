@@ -9,12 +9,19 @@ function init() {
 	
 	/* */
 	socket.on('status-reply', function(backends) {
-		var b, html='';
-		$('backends').innerHTML = '';
+		var b;
+		$('#backends').innerHTML = $('<span/>');
 		for(b in backends) if(backends.hasOwnProperty(b)) {
-			$('backends').append('<img src="/images/"' + (backends[b] ? 'green' : 'red' ) + '"-ball-18x18.png" width="18" height="18" alt="" />');
+			$('#backends').append('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="" />');
 		}
 	});
+	
+	/* Timer to update backends */
+	function backends_loop() {
+		socket.emit('status');
+		setTimeout(backends_loop, 30000);
+	}
+	backends_loop();
 	
 	/* Get avatar */
 	function get_avatar(email, fn) {

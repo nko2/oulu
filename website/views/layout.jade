@@ -3,7 +3,7 @@ html(lang="en")
 	head
 		title= title
 		link(rel='stylesheet/less', href='/stylesheets/bootstrap/bootstrap.less')
-		link(rel='text/css', href='/stylesheets/style.css')
+		link(href='/stylesheets/style.css')
 		script(type='text/javascript',src='/javascripts/jquery-1.6.2.min.js')
 		script(type='text/javascript',src='/socket.io/socket.io.js')
 		script(type='text/javascript',src='/javascripts/less-1.1.3.min.js')
@@ -50,8 +50,8 @@ html(lang="en")
 					//	input(type="text",id="username",placeholder="Username",autocomplete='off')
 					//	input(type="text",id="password",placeholder="Password",autocomplete='off')
 					//	input(type="submit",value="Login",autocomplete='off')
-		div(id="backends")
 		div(class="row")
 			div(class="span4 columns offset2")
 				h1 Web-chat
+				div#backends
 		!= body
