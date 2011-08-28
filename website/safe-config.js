@@ -15,4 +15,14 @@ process.umask(config.umask || 0077);
 if(!config.port)       config.port = 3000;
 if(!config.transports) config.transports = ['xhr-polling'];
 
+    connection = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options),
+    users_db = connection.database('users');
+
+
+if(config.couchdb) {
+	if(!config.couchdb.host) config.couchdb.host = 'localhost';
+	if(!config.couchdb.port) config.couchdb.port = 5984;
+	if(!config.couchdb.options) config.couchdb.options = {};
+}
+
 /* EOF */
