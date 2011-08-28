@@ -6,10 +6,13 @@
 var _sessions = [],
     lib = module.exports = {},
     config = require('./safe-config.js'),
-    cradle = require('cradle'),
-    connection = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options),
-    users_db = connection.database('users');
+	cradle, cradle_con, users_db;
 
+if(config.couchdb) {
+	cradle = require('cradle'),
+	cradle_con = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options),
+	users_db = connection.database('users');
+}
 
 /* Session constructor */
 function Session (apikey) {
