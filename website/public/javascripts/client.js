@@ -13,7 +13,7 @@ function init() {
 			avatars[email] = url;
 			fn(avatars[email]);
 		});
-		socket.emit('get-gravatar', {s: '100', r: 'pg', d: '404'}, false);
+		socket.emit('get-gravatar', email, {s: '100', r: 'pg', d: '404'}, false);
 	}
 	
 	// set cookie if/when receiving api key
