@@ -93,7 +93,7 @@ app.get('/setup', function(req, res) {
 			console.log('Client requested new api key');
 			sessions.create(function(err, sess) {
 				if(err) {
-					console.log('Error: ' + err);
+					console.log('Error: ' + sys.inspect(err));
 					browser.emit('error', 'Failed to create apikey');
 					browser.emit('join-failed');
 					browser.emit('rejected-apikey');
@@ -152,7 +152,7 @@ app.get('/setup', function(req, res) {
 		shell.on('create', function() {
 			sessions.create(function(err, sess) {
 				if(err) {
-					console.log('Error: ' + err);
+					console.log('Error: ' + sys.inspect(err));
 					shell.emit('join-failed');
 					shell.emit('rejected-apikey');
 					shell.emit('error', 'Failed to create apikey');
