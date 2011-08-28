@@ -6,7 +6,14 @@ function init() {
 	var socket = io.connect('/client'),
 	    avatars = {},
 	    big_avatars = {},
-	    me = {};
+	    _me = {};
+	
+	function update_me(data) {
+		if((!_me.mypresence) && data.mypresence) {
+			_me.mypresence = data.mypresence;
+			_me.network = data.network;
+		}
+	}
 	
 	function escape(str) { return $('<span/>').text(str).html(); }
 	
@@ -73,6 +80,9 @@ function init() {
 		    if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 		    return '';
 		}
+		
+		update_me(data);
+		
 		$('#ircrows').prepend('<div class="ircrow" style="display: none;"><div style="float: left; margin-right: 8px;"'+img()+'</div> <div style="">'+ data.channel +'</div>'+
 				      escape(HHmm(data.time))+
 				      ' &lt;<span style="font-weight: bold; color: black;">'+
