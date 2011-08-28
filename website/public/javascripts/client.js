@@ -12,7 +12,7 @@ function init() {
 		var b, html='';
 		$('backends').innerHTML = '';
 		for(b in backends) if(backends.hasOwnProperty(b)) {
-			$('backends').append('<img src="/images/" + (backends[b] ? 'green' : 'red' ) + "-ball-18x18.png" width="18" height="18" alt="" />');
+			$('backends').append('<img src="/images/"' + (backends[b] ? 'green' : 'red' ) + '"-ball-18x18.png" width="18" height="18" alt="" />');
 		}
 	});
 	
