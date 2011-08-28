@@ -1,0 +1,16 @@
+{
+    "name": "nko-oulu-website"
+  , "version": "0.0.1"
+  , "private": true
+  , "scripts": { "start" : "node website/app.js" }
+  , "dependencies": {
+      "express": "2.4.4"
+    , "express-params": "*"
+    , "express-messages": "*"
+    , "express-namespace": "*"
+    , "jade": ">= 0.0.1"
+    , "socket.io": ">= 0.7"
+    , "nko": "*"
+    , "gravatar": "*"
+  }
+}
