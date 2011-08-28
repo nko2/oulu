@@ -3,7 +3,6 @@
  */
 
 var app = module.exports = {},
-    require('nko')('s00YpXnmWhL4FBJi'),
     config = require('./safe-config.js'),
     express = require('express'),
     sys = require('sys'),
@@ -11,6 +10,8 @@ var app = module.exports = {},
     namespace = require('express-namespace'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
+
+require('nko')('s00YpXnmWhL4FBJi');
 
 params.extend(app);
 
