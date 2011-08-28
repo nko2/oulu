@@ -1,10 +1,30 @@
 /* icecapd */
 
 var init = require('init'),
-    config = require('./config.js');
+    fs = require('fs'),
+    path = require('path'),
+    config = {};
 
+/* Read (optional) configuration file */
+(function() {
+	var home = process.env.HOME || __dirname,
+	    dir = path.resolve(home, '.icecapd-js'),
+	    file = path.resolve(dir, 'config.json');
+	try {
+		if(!path.existsSync(dir)) fs.mkdirSync(dir, 0700);
+		if(path.existsSync(file)) {
+			config = JSON.parse(fs.readFileSync(file, 'utf-8'));
+		}
+	} catch(e) {
+		// Do nothing
+	}
+	
+	if(!config.dir) config.dir = dir;
+})();
+
+/* Setup standard init CLI */
 init.simple({
-	pidfile : config.pidfile || './node-icecapd.pid',
+	pidfile : config.pidfile || path.resolve(config.dir, 'run.pid'),
 	logfile : config.logfile,
 	command : process.argv[3],
 	run     : function () {
