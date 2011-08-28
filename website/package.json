@@ -11,6 +11,7 @@
     , "jade": ">= 0.0.1"
     , "socket.io": ">= 0.7"
     , "nko": "*"
+    , "cradle": "*"
     , "gravatar": "*"
   }
 }
