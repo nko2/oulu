@@ -19,7 +19,7 @@ require('nko')('s00YpXnmWhL4FBJi');
 // Output debug for memory usage
 setInterval(function() {
 	util.log('DEBUG: Memory usage: ' + util.inspect(process.memoryUsage()));
-}, 5000);
+}, 30000);
 
 params.extend(app);
 
@@ -52,12 +52,13 @@ app.configure('production', function() {
 });
 
 io.configure('development', function(){
-    //io.set('log level', 7);
+	io.set('log level', 1);
 	io.set('transports', config.transports || ['websocket', 'xhr-polling']);
 });
 
 io.configure('production', function(){
-    io.set('transports', config.transports);
+	io.set('log level', 1);
+	io.set('transports', config.transports);
 });
 
 // Routes
