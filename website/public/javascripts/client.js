@@ -40,7 +40,6 @@ function init() {
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
 		console.log("icecap-event received: '" + name + "'");
-		//$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
 		
 		get_avatar(data['address'], function(url) {
@@ -49,13 +48,14 @@ function init() {
 				if(url) return '<img src="'+url+'" title="'+f(data['address'])+'"/> ';
 				return '';
 			}
-			$('#ircrows').prepend('<div class="ircrow">'+img()+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+
 				f(HHmm(data.time))+
 				' &lt;'+
 				f(data.presence)+
 				'&gt; '+
 				make_urls(f(data.msg))+
 				'<hr/></div>');
+			$('.ircrow').fadeIn('slow');
 			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
 				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 			};
@@ -74,7 +74,7 @@ function init() {
 	// preferences menu
 	$('#commit-button').click(function() {
 		$('.modal').slideToggle('slow', function() {
-			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'dgfrtr' } );
+			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'dgfrtr', 'real_name' : 'derp' } );
 			$.cookie('the_magic_oulu_cookie', $('#apikey').val(), { expires: 365, path: '/' });
  		});
 	});
