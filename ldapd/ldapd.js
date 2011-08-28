@@ -1,11 +1,14 @@
+#!/usr/bin/env node
+
 var init = require('init');
-var config = require('config.js');
-var server = require('couchldap.js');
+var fs = require('fs');
+var couchldap = require('./couchldap.js');
+var config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
 
 init.simple({
-	pidfile : config.pidfile || './node-ldapd.pid',
-	logfile : config.logfile || './node-ldapd.log',
-	command : process.argv[3],
-	run     : server.run
+	pidfile : config.pidfile,
+	logfile : config.logfile,
+	command : process.argv[2],
+	run     : couchldap.run
 });
 

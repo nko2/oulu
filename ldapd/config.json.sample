@@ -1,0 +1,9 @@
+{
+	"pidfile": "./node-ldapd.pid",
+	"logfile": "./node-ldapd.log",
+	"shell": "/bin/bash",
+	"gid": 2000,
+	"port": 1389,
+	"host": "127.0.0.1",
+	"base": "ou=users, o=oulu"
+}
