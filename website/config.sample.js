@@ -7,13 +7,7 @@ var config = module.exports = {};
 config.transports = ['xhr-polling'];
 config.port = 3000; // Shell service will use 3001 by default
 
-/*
-config.website = { 'port': 3000 };
-config.shell   = { 'port': 3001 };
-*/
-
-/*
-
+/* Uncomment to enable CouchDB:
 config.couchdb = {
     'options': {
         'auth': {
@@ -22,5 +16,4 @@ config.couchdb = {
         }
     }
 };
-
 */

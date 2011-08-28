@@ -204,8 +204,7 @@ app.get('/setup', function(req, res) {
 
 /* Setup HTTP */
 (function() {
-	var config = config || {},
-	    port = config.port || 3000,
+	var port = config.port || 3000,
 	    host = config.host;
 	if(host) app.listen(host, port);
 	else app.listen(port);
