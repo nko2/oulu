@@ -6,7 +6,16 @@ function init() {
 	var socket = io.connect('/client'),
 	    avatars = {},
 	    big_avatars = {};
-
+	
+	/* */
+	socket.on('status-reply', function(backends) {
+		var b, html='';
+		$('backends').innerHTML = '';
+		for(b in backends) if(backends.hasOwnProperty(b)) {
+			$('backends').append('<img src="/images/" + (backends[b] ? 'green' : 'red' ) + "-ball-18x18.png" width="18" height="18" alt="" />');
+		}
+	});
+	
 	/* Get avatar */
 	function get_avatar(email, fn) {
 		if(avatars[email] && big_avatars[email]) return fn(avatars[email], big_avatars[email]);
@@ -20,11 +29,11 @@ function init() {
 				fn(avatars[email], big_avatars[email]);
 			} else {
 				socket.once('set-gravatar', do_set_gravatar);
-				socket.emit('get-gravatar', email, {s: '200', r: 'pg'}, false);
+				socket.emit('get-gravatar', email, {s: '200', d:'identicon', r: 'pg'}, false);
 			}
 		}
 		socket.once('set-gravatar', do_set_gravatar);
-		socket.emit('get-gravatar', email, {s: '32', r: 'pg'}, false);
+		socket.emit('get-gravatar', email, {s: '32', d:'identicon', r: 'pg'}, false);
 	}
 	
 	// set cookie if/when receiving api key

@@ -87,11 +87,7 @@ app.get('/custom-guide', function(req, res) {
 		
 		// Browser requests a status
 		browser.on('status', function() {
-			if(session && session.shell) {
-				browser.emit('status-reply', ['shell']);
-			} else {
-				browser.emit('status-reply', []);
-			}
+			browser.emit('status-reply', {'shell': ((session && session.shell) ? true : false) });
 		});
 		
 		// Browser requests gravator url
