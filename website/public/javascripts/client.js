@@ -69,6 +69,11 @@ function HHmm(time) {
 // jquery
 $(document).ready(function() {
 	init();	
+
+	$('#toggle-button').click(function() {
+		$('.modal').toggle('slow', function() {
+ 		});
+	});
 });
 
 /* EOF */
