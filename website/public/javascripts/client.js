@@ -6,7 +6,7 @@ function init() {
 	var socket = io.connect('/client');
 
 	// set cookie if/when receiving api key
-	socket.on('joined', function (apikey) {
+	socket.once('joined', function (apikey) {
 		$.cookie('the_magic_oulu_cookie', apikey, { expires: 365, path: '/' });
 		console.log('Client joined, magic cookie set with apikey '+ apikey);
 		$('#apikey').val(apikey);
