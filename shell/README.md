@@ -35,4 +35,3 @@ Running icecapd
 Configuring it in crontab
 -------------------------
 
-
