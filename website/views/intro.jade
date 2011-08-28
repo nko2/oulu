@@ -2,30 +2,30 @@ h3 Introduction
 
 p
 	| This is 
-	a(href='http://nodeknockout.com/teams/oulu','target':'_blank') our Node Knockout entry
+	a(href='http://nodeknockout.com/teams/oulu',target='_blank') our Node Knockout entry
 	| . It's basically a hosted web-based remote shell service. The browser 
 	| client is just very simple IRC client. It could as well support uploading 
 	| images and files to your remote server and other optional plugins.
 
 p
-	a(href='http://search.npmjs.org/#/icecapdjs','target':'_blank') The icecapd(js) backends
+	a(href='http://search.npmjs.org/#/icecapdjs',target='_blank') The icecapd(js) backends
 	|  are run on local unix accounts that are created 
 	| when first visiting the site. Linux knows about the accounts via nss-ldap 
 	| – 
-	a(href='http://ldapjs.org/','target':'_blank') ldapjs
+	a(href='http://ldapjs.org/',target='_blank') ldapjs
 	|  – 
-	a(href='https://github.com/cloudhead/cradle','target':'_blank') couchdb.
+	a(href='https://github.com/cloudhead/cradle',target='_blank') couchdb.
 
 p
 	| Communication between the three main parts of the service are done mostly using
-	a(href='http://socket.io/','target':'_blank') Socket.IO
+	a(href='http://socket.io/',target='_blank') Socket.IO
 	| .
 
 Some features:
 
 ul
 	li Sessions are 
-		b persistant
+		b persistent
 	li Avatars are automatically selected from Gravatar Service based on user's idents
 	li Image URL thumbnails can be viewed when the mouse is moved over the link
 	li Our backend can be connected to the server from any system supporting Node.js and NPM
