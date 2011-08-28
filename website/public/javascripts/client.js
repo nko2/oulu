@@ -74,13 +74,13 @@ function init() {
 					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 					return '';
 				}
-				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
+				$('#ircrows').prepend('<div class="ircrow" style="display: none;"><div style="float: left; margin-right: 8px;"'+img()+'</div> <div style="">'+ data.channel +'</div>'+
 					escape(HHmm(data.time))+
-					' &lt;'+
+					' &lt;<span style="font-weight: bold; color: black;">'+
 					escape(data.presence)+
-					'&gt; '+
+					'</span>&gt; <span style="color: black;">'+
 					make_urls(escape(data.msg))+
-					'<hr/></div>');
+					'</span><hr/></div>');
 				$('.ircrow').fadeIn('slow');
 				if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 				if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
