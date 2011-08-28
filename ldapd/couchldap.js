@@ -2,14 +2,15 @@ var couchldap = module.exports = {};
 var ldap = require('ldapjs');
 var cradle = require('cradle');
 var server = ldap.createServer();
-var config = require('./config.js');
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
 var db = new(cradle.Connection)().database('users');
 
 function sendRecord(user, req, res) {
 	console.log('Creating record for ' + user.name || 'unknown');
 
 	var obj = {
-		dn: 'cn=' + user.name + ', ou=users, o=oulu',
+		dn: 'cn=' + user.name + ', ' + config.base,
 		attributes: {
 			objectclass: [ 'posixAccount', 'shadowAccount', 'inetOrgPerson' ],
 			sn: 'User',
@@ -17,10 +18,9 @@ function sendRecord(user, req, res) {
 			cn: user.name,
 			uid: user.name,
 			uidnumber: '' + user.uid,
-			gidnumber: '' + 2000,
+			gidnumber: '' + config.gid,
 			homedirectory: '/home/' + user.name,
-			loginshell: config.shell || '/bin/bash',
-			gecos: 'foo'
+			loginshell: config.shell || '/bin/bash'
 		}
 	};
 
@@ -30,11 +30,6 @@ function sendRecord(user, req, res) {
 	}
 }
 			
-server.bind('ou=users, o=oulu', function(req, res, next) {
-	console.log('bind DN: ' + req.dn.toString());
-	console.log('bind PW: ' + req.credentials);
-	res.end();
-});
 
 function query(req, res, next) {
 	console.log('Querying.');
@@ -49,9 +44,21 @@ function query(req, res, next) {
 	});
 }
 
-// Handle ldapsearches
-server.search('ou=users, o=oulu', query);
+couchldap.run = function() {
 
-server.listen(1389, function() {
-	console.log('LDAP server up and running.');
-});
+	// Handle bind
+	server.bind(config.base, function(req, res, next) {
+		console.log('bind DN: ' + req.dn.toString());
+		console.log('bind PW: ' + req.credentials);
+		res.end();
+	});
+
+	// Handle search
+	server.search(config.base, query);
+
+	// Start the server
+	server.listen(config.port, config.host, function() {
+		console.log('LDAP server up and running.');
+	});
+};
+

@@ -29,7 +29,7 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser());
-	app.use(express.session({ secret: "keyboard cat" }));
+//	app.use(express.session({ secret: "keyboard cat" }));
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
@@ -93,7 +93,7 @@ app.get('/', function(req, res) {
 				}
 				session = sess;
 				browser.emit('joined', session.apikey);
-				console.log('Sent api key' + session.apikey);
+				console.log('Sent api key ' + session.apikey);
 			});
 		});
 		
@@ -130,10 +130,14 @@ app.get('/', function(req, res) {
 		});
 		
 		// Browser disconnects
-		browser.on('disconnect', function () {
+		browser.once('disconnect', function () {
 			console.log( 'DEBUG: browser disconnected');
 			session && session.browser && session.part(browser);
-			console.log('session = ' + sys.inspect(session));
+			//console.log('session = ' + sys.inspect(session));
+			browser.removeAllListeners('icecap.command');
+			browser.removeAllListeners('join');
+			browser.removeAllListeners('create');
+			browser.removeAllListeners('get-gravatar');
 		});
 	});
 	

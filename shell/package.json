@@ -1,7 +1,8 @@
 {
-  "name": "icecapd",
-  "description": "Node proxy for local icecapd",
-  "version": "0.0.1",
+  "name": "icecapdjs",
+  "author": "Jaakko-Heikki Heusala <jheusala@iki.fi>",
+  "description": "Local daemon to relay icecapd to remote webserver over HTTP. Part of NKO 2011 from Oulu team.",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/nko2/oulu.git"
@@ -9,6 +10,7 @@
   "engines": {
     "node": "*"
   },
+  "bin": { "icecapdjs": "./icecapd.js" },
   "dependencies": {
     "init": "*",
     "icecap": "*",
