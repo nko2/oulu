@@ -2,13 +2,13 @@ h3 Introduction
 
 p
 	| This is 
-		a(href='http://nodeknockout.com/teams/oulu') our Node Knockout entry
+	a(href='http://nodeknockout.com/teams/oulu','targer':'_blank') our Node Knockout entry
 	| . It's basically a hosted web-based remote shell service. The browser 
 	| client is just very simple IRC client. It could as well support uploading 
 	| images and files to your remote server and other optional plugins.
 
 p
-	a(href='http://search.npmjs.org/#/icecapdjs') The icecapd(js) backends
+	a(href='http://search.npmjs.org/#/icecapdjs','targer':'_blank') The icecapd(js) backends
 	|  are run on local unix accounts that are created 
 	| when first visiting the site. Linux knows about the accounts via nss-ldap 
 	| – ldapjs – couchdb.
@@ -17,5 +17,6 @@ Some features:
 
 ul
 	li Avatars are automatically selected from Gravatar Service based on user's idents
+	li Image URL thumbnails can be viewed when the mouse is moved over the link
 	li Our backend can be connected to the server from any system supporting Node.js and NPM
 
