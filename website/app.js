@@ -3,6 +3,7 @@
  */
 
 var app = module.exports = {},
+    require('nko')('s00YpXnmWhL4FBJi'),
     config = require('./safe-config.js'),
     express = require('express'),
     sys = require('sys'),

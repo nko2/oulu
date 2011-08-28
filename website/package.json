@@ -1,5 +1,5 @@
 {
-    "name": "webicecap"
+    "name": "nko-oulu-website"
   , "version": "0.0.1"
   , "private": true
   , "scripts": { "start" : "node app.js" }
@@ -10,6 +10,6 @@
     , "express-namespace": "*"
     , "jade": ">= 0.0.1"
     , "socket.io": ">= 0.7"
-    , "icecap": "*"
+    , "nko": "*"
   }
 }
