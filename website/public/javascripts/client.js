@@ -9,7 +9,7 @@ function init() {
 
 	/* Get avatar */
 	function get_avatar(email, fn) {
-		if(avatars[email]) return fn(avatars[email]);
+		if(avatars[email] && big_avatars[email]) return fn(avatars[email], big_avatars[email]);
 		function do_set_gravatar(email, url, options) {
 			if(options && (options.s >= 50) ) {
 				big_avatars[email] = url;
