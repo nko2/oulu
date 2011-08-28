@@ -8,12 +8,12 @@ div(class="row")
 div(class="row")
 	div(class="span13 columns offset1")
 		ul(class="tabs")
-			li(class="active")
-				a(href="#",id="timelinetab") Timeline
-			li
-				a(href="#",id="guidetab") Custom guide
-		div(id="ircrows",class="tab")
-		div(id="guide",class="tab",style="display: none;")
+			li(id="timelinetab",class="tab active")
+				a(href="#") Timeline
+			li(id="guidetab",class="tab")
+				a(href="#") Custom guide
+		div(id="ircrows",class="tabcontent")
+		div(id="guide",class="tabcontent",style="display: none;")
 			!= partial('custom-guide')
 	div(class="span2 columns offset1")
 		ul(class="unstyled")
