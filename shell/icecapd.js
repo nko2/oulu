@@ -71,7 +71,7 @@ init.simple({
 		    website_socket;
 		
 		function do_connection() {
-			if(website_socket) website_socket = io.connect(config.iotarget || 'http://nko-oulu.kapsi.fi/shell');
+			if(!website_socket) website_socket = io.connect(config.iotarget || 'http://nko-oulu.kapsi.fi/shell');
 			
 			function icecap_event(name, tokens) {
 				//if(name !== 'msg') return;
