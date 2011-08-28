@@ -64,9 +64,11 @@ Running icecapd
 Configuring it in crontab
 -------------------------
 
-You can save 
+You can setup a simple watchdog with crontab.
 
-	* *    * * *   /path/to/icecapd.js status >/dev/null || node icecapd.js start
+Sample crontab file:
+
+	* *    * * *   /path/to/icecapd.js status >/dev/null || /path/to/icecapd.js start
 
 Configuration Settings
 --------------------
