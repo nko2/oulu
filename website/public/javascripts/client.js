@@ -9,7 +9,7 @@ function init() {
 	    _me = {};
 	
 	function update_me(data) {
-		if((!_me.mypresence) && data.mypresence) {
+		if(data.mypresence) {
 			_me.mypresence = data.mypresence;
 			_me.network = data.network;
 			_me.address = data.address;
