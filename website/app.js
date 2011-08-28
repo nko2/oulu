@@ -71,6 +71,10 @@ app.get('/custom-guide', function(req, res) {
 	res.partial('custom-guide', { title : 'Guide to setup shell service - NKO Oulu' });
 });
 
+app.get('/intro', function(req, res) {
+	res.partial('intro', { title : 'Introduction - NKO Oulu' });
+});
+
 /* Setup io.sockets */
 (function() {
 	
