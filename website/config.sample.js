@@ -7,6 +7,8 @@ var config = module.exports = {};
 config.transports = ['xhr-polling'];
 config.port = 3000; // Shell service will use 3001 by default
 
+config.create_user_script = '/etc/create-user.sh';
+
 /* Uncomment to enable CouchDB:
 config.couchdb = {
     'options': {
