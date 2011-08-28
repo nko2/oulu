@@ -116,7 +116,7 @@ function get_next_free_apikey(fn) {
 
 function createUser(username) {
     var spawn = require('child_process').spawn;
-    var createScript = spawn(config.create_user_script);
+    var createScript = spawn(config.create_user_script, [username]);
     console.log('Triggering user creation of '+username);
 }
 
