@@ -125,17 +125,32 @@ lib.create = (function(fn) {
 		}
 		// If couchdb is enabled
 		if(users_db) {
-			users_db.save(apikey, {'apikey':apikey}, function (err, res) {
-				if(err) {
-					fn&&fn(err);
-					return;
-				}
-				
-				if(_sessions[apikey] === undefined) {
-					_sessions[apikey] = new Session(apikey);
-				}
-				
-				fn && fn(undefined, _sessions[apikey]);
+
+			// Databse finds out next usable UID
+			users_db.view('users/nextuid', function (err, res) {
+
+				// Only one row is received but I cannot say
+				// res[0] so forEach() it is.
+				res.forEach(function(nextuid) {
+
+					users_db.save(apikey, {
+						'apikey':apikey,
+						'uid':nextuid,
+						'name':'g'+nextuid
+					}, function (err, res) {
+
+						if(err) {
+							fn&&fn(err);
+							return;
+						}
+						
+						if(_sessions[apikey] === undefined) {
+							_sessions[apikey] = new Session(apikey);
+						}
+						
+						fn && fn(undefined, _sessions[apikey]);
+					});
+				});
 			});
 		} else {
 			if(_sessions[apikey] === undefined) {

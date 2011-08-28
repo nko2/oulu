@@ -6,7 +6,7 @@ var db = new(cradle.Connection)().database('users');
 //
 db.view('users/nextuid', function (err, res) {
 	res.forEach(function(next) {
-		console.log('next: '+next);
+		console.log('next: '+res[0]);
 	});
 });
 
