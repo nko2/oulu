@@ -101,7 +101,7 @@ app.get('/setup', function(req, res) {
 				}
 				session = sess;
 				browser.emit('joined', session.apikey);
-				console.log('Sent api key' + session.apikey);
+				console.log('Sent api key ' + session.apikey);
 			});
 		});
 		
