@@ -1,14 +1,10 @@
 /* Client Side JavaScript */
 
-var GLOBAL_OULU = {};
-
 /* Init window */
 function init() {
 	
 	//var socket = io.connect('http://localhost:3000');
 	var socket = io.connect('http://localhost:3000/client');
-	
-	GLOBAL_OULU.socket = socket;
 	
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
