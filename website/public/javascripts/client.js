@@ -45,7 +45,7 @@ function init() {
 		
 		get_avatar(data['address'], function(url) {
 			function f(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').append('<div class="ircrow"><img src="'+url+'" title="'+f(data['address'])+'"/> "+ f(HHmm(data.time)) +' &lt;'+ f(data.presence) +'&gt; '+ make_urls(f(data.msg)) +'<hr/></div>');
+			$('#ircrows').append('<div class="ircrow"><img src="'+url+'" title="'+f(data['address']))+'"/> "+ f(HHmm(data.time)) +' &lt;'+ f(data.presence) +'&gt; '+ make_urls(f(data.msg)) +'<hr/></div>');
 		});
 		if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
 			$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
