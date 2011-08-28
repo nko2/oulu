@@ -75,6 +75,11 @@ $(document).ready(function() {
 		$('.modal').toggle('slow', function() {
  		});
 	});
+
+	$('#commit-button').click(function() {
+		$('.modal').toggle('slow', function() {
+ 		});
+	});
 });
 
 /* EOF */
