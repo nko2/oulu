@@ -158,7 +158,8 @@ lib.fetch = (function(apikey, fn) {
 					fn&&fn(err);
 					return;
 				}
-				fn&&fn(undefined, new Session(apikey));
+				_sessions[apikey] = new Session(apikey);
+				fn&&fn(undefined, _sessions[apikey]);
 			});
 		}
 	} else {

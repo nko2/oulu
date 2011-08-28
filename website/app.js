@@ -117,7 +117,9 @@ app.get('/', function(req, res) {
 					return;
 				}
 				session = sess;
+				session.join(browser, 'browser');
 				browser.emit('joined', session.apikey);
+				console.log('Browser joined!');
 			});
 		});
 		
@@ -175,7 +177,9 @@ app.get('/', function(req, res) {
 					return;
 				}
 				session = sess;
+				session.join(shell, 'shell');
 				shell.emit('joined', session.apikey);
+				console.log('Shell joined!');
 			});
 		});
 		
