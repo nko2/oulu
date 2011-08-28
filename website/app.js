@@ -53,9 +53,11 @@ io.configure('production', function(){
 // Routes
 
 app.get('/', function(req, res) {
-	res.render('index', {
-		title : 'Express'
-	});
+	res.render('index', { title : 'NKO Oulu' });
+});
+
+app.get('/setup', function(req, res) {
+	res.render('setup', { title : 'Setup account - NKO Oulu' });
 });
 
 /* Temporary Database for users in memory */
