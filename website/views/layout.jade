@@ -24,10 +24,22 @@ html(lang="en")
 							|  by 
 							a(href='http://nodeknockout.com/teams/oulu',target='_blank') NKO Oulu
 							| .
-					a(href="/login") login
-					|  or 
-					a(href="/setup") setup
-					| ! It takes only 15 seconds.
+					ul(class="nav secondary-nav")
+						li(class="menu")
+							a(href="#",class="menu",id="toggle-button") Preferences
+					div(class="modal",style="position: absolute; top: 40px; left: 55%; margin: 0 auto; z-index: 1; display: none;")
+						//div(class="modal-header")
+						//	h3 Preferences
+						div(class="modal-body",style="margin-bottom: 50px;")
+							form(id="settingsform",style="float: left; margin: 0,0,0,0;")
+								input(type="text",id="nick",placeholder="set your nick here",autocomplete='off')
+						div(class="modal-footer")
+							a(href="#",class="btn primary") Commit
+							a(href="#",class="btn secondary") Cancel
+					//a(href="/login") login
+					//|  or 
+					//a(href="/setup") setup
+					//| ! It takes only 15 seconds.
 					//form(id="loginform",method="post",action="/login")
 					//	input(type="text",id="username",placeholder="Username",autocomplete='off')
 					//	input(type="text",id="password",placeholder="Password",autocomplete='off')
