@@ -10,7 +10,7 @@ var app = module.exports = {},
     params = require('express-params'),
     namespace = require('express-namespace'),
     cradle = require('cradle'),
-	users_db = new(cradle.Connection)().database('users'),
+    users_db = new(cradle.Connection)().database('users'),
     app = module.exports = express.createServer(),
     io = require('socket.io').listen(app);
 
@@ -52,7 +52,7 @@ app.configure('production', function() {
 });
 
 io.configure('development', function(){
-    io.set('log level', 100);
+    io.set('log level', 7);
 	io.set('transports', config.transports || ['websocket', 'xhr-polling']);
 });
 
@@ -76,7 +76,7 @@ app.get('/custom-guide', function(req, res) {
 	var sessions = require('./sessions.js'),
 	    browsers = io.of('/client'), // Web browsers
 	    shells = io.of('/shell'), // User's shell daemons (connected to local icecapd)
-		gravatar = require('gravatar');
+	    gravatar = require('gravatar');
 	
 	// New browser event
 	browsers.on('connection', function (browser) {
