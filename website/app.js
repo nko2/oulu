@@ -77,6 +77,19 @@ app.get('/setup', function(req, res) {
 		
 		var session;
 		
+		// Browser creates a new session
+		browser.on('create', function() {
+			session = sessions.create(function(err, sess) {
+				if(err) {
+					console.log('Error: ' + err);
+					browser.emit('error', 'Failed to create apikey');
+					return;
+				}
+				session = sess;
+				browser.emit('joined', session.apikey);
+			});
+		});
+		
 		// Browser joins with an API key
 		browser.on('join', function(apikey) {
 			console.log( 'DEBUG: browser joins with apikey = ' + sys.inspect(apikey) );
@@ -85,16 +98,17 @@ app.get('/setup', function(req, res) {
 				browser.emit('error', 'This browser was already joined to session!');
 				return;
 			}
-			if(!sessions.exists(apikey)) {
-				console.log('Error: There is no such apikey!');
-				browser.emit('error', 'There is no such API-Key!');
-				return;
-			}
 			
 			console.log('Joining...');
-			session = sessions.get(apikey).join('browser', browser);
-			
-			browser.emit('joined');
+			sessions.fetch(function(err, sess) {
+				if(err) {
+					console.log('Error: Failed to validate apikey');
+					browser.emit('error', 'Failed to validate apikey');
+					return;
+				}
+				session = sess;
+				browser.emit('joined', session.apikey);
+			});
 		});
 		
 		// Browser sends an icecap.command event
@@ -116,23 +130,38 @@ app.get('/setup', function(req, res) {
 		
 		var session;
 		
+		// Shell creates a new session
+		shell.on('create', function() {
+			session = sessions.create(function(err, sess) {
+				if(err) {
+					console.log('Error: ' + err);
+					shell.emit('error', 'Failed to create apikey');
+					return;
+				}
+				session = sess;
+				shell.emit('joined', session.apikey);
+			});
+		});
+		
 		// Shell joins with an API key
 		shell.on('join', function(apikey) {
-			console.log('Shell joining with apikey = ' + sys.inspect(apikey));
+			console.log( 'DEBUG: shell joins with apikey = ' + sys.inspect(apikey) );
 			if(session) {
-				console.log('Error: Already connected to session!');
-				shell.emit('error', 'This shell connection was already joined to session!');
+				console.log('Error: This shell was already joined to session.');
+				shell.emit('error', 'This shell was already joined to session!');
 				return;
 			}
-			if(!sessions.exists(apikey)) {
-				console.log('Error: No such api-key!');
-				shell.emit('error', 'There is no such API-Key!');
-				return;
-			}
-			console.log('Joining...');
-			session = sessions.get(apikey).join('shell', shell);
 			
-			shell.emit('joined');
+			console.log('Joining...');
+			sessions.fetch(function(err, sess) {
+				if(err) {
+					console.log('Error: Failed to validate apikey');
+					shell.emit('error', 'Failed to validate apikey');
+					return;
+				}
+				session = sess;
+				shell.emit('joined', session.apikey);
+			});
 		});
 		
 		// Shell sends an icecap-event, we proxy it to the browser

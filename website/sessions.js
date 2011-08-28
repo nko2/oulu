@@ -27,18 +27,44 @@ Session.prototype.part = (function(socket) {
 	return this;
 });
 
+/* Get new apikey */
+function get_next_free_api_key(fn) {
+	
+	function random_string(length) {
+		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz",
+			length = length || 32,
+			out = '',
+			i=0;
+		for (; i<length; i++) out += chars[Math.floor(Math.random() * chars.length)];
+		return out;
+	}
+	
+	// FIXME: Implement couchdb support
+	var undefined, apikey;
+	do {
+		apikey = random_string(32);
+	} while(_sessions[apikey]);
+	return apikey;
+}
 
-/* Create new apikey or get the registered key */
-lib.create = (function(apikey) {
+/* Create new apikey */
+lib.create = (function(fn) {
+	// FIXME: Implement couchdb support
 	var undefined;
-	if(_sessions[apikey] === undefined) return _sessions[apikey] = new Session(apikey);
-	return _sessions[apikey];
+	get_next_free_api_key(function(err, api_key) {
+		if(err) return fn(err);
+		if(_sessions[apikey] === undefined) {
+			_sessions[apikey] = new Session(apikey);
+		}
+		fn(undefined, _sessions[apikey]);
+	});
 });
 
-/* Check if session exists */
-lib.exists = (function(apikey) {
+/* Fetch existing session */
+lib.fetch = (function(apikey, fn) {
+	// FIXME: Implement couchdb
 	var undefined;
-	return (_sessions[apikey] === undefined) ? false : true;
+	fn(undefined, _sessions[apikey] );
 });
 
 /* EOF */
