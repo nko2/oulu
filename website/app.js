@@ -6,6 +6,7 @@ var app = module.exports = {},
     config = require('./safe-config.js'),
     express = require('express'),
     sys = require('sys'),
+    util = require('util'),
     params = require('express-params'),
     namespace = require('express-namespace'),
     cradle = require('cradle'),
@@ -14,6 +15,11 @@ var app = module.exports = {},
     io = require('socket.io').listen(app);
 
 require('nko')('s00YpXnmWhL4FBJi');
+
+// Output debug for memory usage
+setInterval(function() {
+	util.log('DEBUG: Memory usage: ' + util.inspect(process.memoryUsage()));
+}, 5000);
 
 params.extend(app);
 
