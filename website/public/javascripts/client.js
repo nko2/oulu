@@ -6,10 +6,11 @@ function init() {
 	var socket = io.connect('/client'),
 	    avatars = {},
 	    big_avatars = {},
-	    _me = {};
+	    _me = {'networks':{}};
 	
 	function update_me(data) {
-		if(data.mypresence) {
+		// Select first mypresence
+		if((!_me.mypresence) && data.mypresence) {
 			_me.mypresence = data.mypresence;
 			_me.network = data.network;
 			_me.address = data.address;
