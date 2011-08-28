@@ -64,50 +64,49 @@ app.get('/setup', function(req, res) {
 	res.render('setup', { title : 'Setup - NKO Oulu' });
 });
 
-/* Temporary Database for users in memory */
-var UserDatabase = (function UserDatabase() {
-	
-	/* Constructor */
-	function UserDatabase() {
-	}
-	
-	/* Get user record */
-	UserDatabase.prototype.get = (function(key, fn) {
-		fn();
-	});
-	
-	/* Set user record */
-	UserDatabase.prototype.set = (function(key, values, fn) {
-		fn();
-	});
-	
-	/* Delete user record */
-	UserDatabase.prototype.del = (function(key, fn) {
-		fn();
-	});
-	
-	return UserDatabase;
-});
-
 /* Setup io.sockets */
 (function() {
 	
-	var users = new UserDatabase(),
+	var sessions = require('./sessions.js'),
 	    browsers = io.of('/client'), // Web browsers
 	    shells = io.of('/shell'); // User's shell daemons (connected to local icecapd)
 	
 	// New browser event
 	browsers.on('connection', function (browser) {
-		console.log('DEBUG: browser connected!');
+		console.log('DEBUG: new browser connected!');
+		
+		var session;
+		
+		// Browser joins with an API key
+		browser.on('join', function(apikey) {
+			console.log( 'DEBUG: browser joins with apikey = ' + sys.inspect(apikey) );
+			if(session) {
+				console.log('Error: This browser was already joined to session.');
+				browser.emit('error', 'This browser was already joined to session!');
+				return;
+			}
+			if(!sessions.exists(apikey)) {
+				console.log('Error: There is no such apikey!');
+				browser.emit('error', 'There is no such API-Key!');
+				return;
+			}
+			
+			console.log('Joining...');
+			session = sessions.get(apikey).join('browser', browser);
+			
+			browser.emit('joined');
+		});
 		
 		// Browser sends an icecap.command event
 		browser.on('icecap.command', function(name, tokens) {
 			console.log( 'DEBUG: browser.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-			
+			session && session.shell && session.shell.emit('icecap.command', name, tokens);
 		});
 		
 		// Browser disconnects
 		browser.on('disconnect', function () {
+			console.log( 'DEBUG: browser disconnected');
+			session && session.browser && session.part(browser);
 		});
 	});
 	
@@ -115,14 +114,37 @@ var UserDatabase = (function UserDatabase() {
 	shells.on('connection', function (shell) {
 		console.log('DEBUG: shell connected!');
 		
-		// Shell sends an icecap-event
+		var session;
+		
+		// Shell joins with an API key
+		shell.on('join', function(apikey) {
+			console.log('Shell joining with apikey = ' + sys.inspect(apikey));
+			if(session) {
+				console.log('Error: Already connected to session!');
+				shell.emit('error', 'This shell connection was already joined to session!');
+				return;
+			}
+			if(!sessions.exists(apikey)) {
+				console.log('Error: No such api-key!');
+				shell.emit('error', 'There is no such API-Key!');
+				return;
+			}
+			console.log('Joining...');
+			session = sessions.get(apikey).join('shell', shell);
+			
+			shell.emit('joined');
+		});
+		
+		// Shell sends an icecap-event, we proxy it to the browser
 		shell.on('icecap-event', function(name, tokens) {
 			console.log( 'DEBUG: shell.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-			if(browsers) browsers.emit('icecap-event', name, tokens);
+			session && session.browser && session.browser.emit('icecap-event', name, tokens);
 		});
 		
 		// Shell daemon disconnects
 		shell.on('disconnect', function () {
+			console.log('Shell disconnects');
+			session && session.shell && session.part(shell);
 		});
 	});
 
