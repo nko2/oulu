@@ -3,8 +3,19 @@
 /* Init window */
 function init() {
 	
-	var socket = io.connect('/client');
+	var socket = io.connect('/client'),
+	    avatars = {};
 
+	/* Get avatar */
+	function get_avatar(email, fn) {
+		if(avatars[email]) fn(avatars[email]);
+		socket.once('set-gravatar', function(email, url) {
+			avatars[email] = url;
+			fn(avatars[email]);
+		});
+		socket.emit('get-gravatar', {s: '100', r: 'pg', d: '404'}, false);
+	}
+	
 	// set cookie if/when receiving api key
 	socket.once('joined', function (apikey) {
 		$.cookie('the_magic_oulu_cookie', apikey, { expires: 365, path: '/' });
@@ -31,7 +42,24 @@ function init() {
 		console.log("icecap-event received: '" + name + "'");
 		//$('#ircrows').append('<div class="ircrow">test</div>');
 		if(name !== 'msg') return;
-		$('#ircrows').append('<div class="ircrow">'+ HHmm(data.time) +' &lt;'+ data.presence +'&gt; '+ make_urls(data.msg) +'</div>');
+		
+		get_avatar(data['address'], function(url) {
+			function f(str) { return $('<span/>').text(str).html(); }
+			$('#ircrows').append('<div class="ircrow"><img src="'+
+				url+
+				'" title="'+
+				f(data['address'])+
+				'"/> '+
+				f(HHmm(data.time))+
+				' &lt;'+
+				f(data.presence)+
+				'&gt; '+
+				make_urls(f(data.msg))+
+				'<hr/></div>');
+			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
+				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+			};
+		});
 	});
 	
 	// send line to IRC
@@ -60,9 +88,10 @@ $(document).ready(function() {
 	});
 
 	$('#commit-button').click(function() {
-		$('.modal').toggle('slow', function() {
+		$('.modal').slideToggle('slow', function() {
  		});
 	});
+
 });
 
 /* EOF */
