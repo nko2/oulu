@@ -18,7 +18,7 @@ function init() {
 	/* Timer to update backends */
 	function backends_loop() {
 		socket.emit('status');
-		setTimeout(backends_loop, 30000);
+		setTimeout(backends_loop, 10000);
 	}
 	backends_loop();
 	
@@ -112,6 +112,7 @@ function init() {
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
+	        socket.emit('icecap-event', 'msg', { 'time':new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
