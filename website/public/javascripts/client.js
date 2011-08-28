@@ -71,12 +71,7 @@ function init() {
 		$('#prompt').val('');
 	});
 
-	// set nick
-	/*$('#loginform').submit(function (event) {
-		event.preventDefault();
-		socket.emit('login', $('#nick').val());
-	});*/
-	
+	// preferences menu
 	$('#commit-button').click(function() {
 		$('.modal').slideToggle('slow', function() {
 			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'mynick' } );
