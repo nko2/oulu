@@ -51,33 +51,53 @@ function init() {
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
 		console.log("icecap-event received: '" + name + "'");
-		if(name !== 'msg') return;
+		if(name == 'msg') {
 		
-		get_avatar(data['address'], function(url, bigurl) {
+			get_avatar(data['address'], function(url, bigurl) {
+				function escape(str) { return $('<span/>').text(str).html(); }
+				function img() {
+					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
+					return '';
+				}
+				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
+					escape(HHmm(data.time))+
+					' &lt;'+
+					escape(data.presence)+
+					'&gt; '+
+					make_urls(escape(data.msg))+
+					'<hr/></div>');
+				$('.ircrow').fadeIn('slow');
+				if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+				if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
+					$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+				};
+			});
+		};
+		if(name == 'channel_presence_added') {
 			function escape(str) { return $('<span/>').text(str).html(); }
-			function img() {
-				if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
-				return '';
-			}
-			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
-				escape(HHmm(data.time))+
-				' &lt;'+
-				escape(data.presence)+
-				'&gt; '+
-				make_urls(escape(data.msg))+
-				'<hr/></div>');
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+                    escape(HHmm(data.time))+ ' '+
+                    escape(data.presence)+
+                    ' joined'+
+                    '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
-			if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
-			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
-				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
-			};
-		});
+		};
+		if(name == 'channel_presence_removed') {
+			function escape(str) { return $('<span/>').text(str).html(); }
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+                    escape(HHmm(data.time))+ ' '+
+                    escape(data.presence)+
+                    ' left'+
+                    '<hr/></div>');
+			$('.ircrow').fadeIn('slow');
+		};
+
 	});
 	
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#oulu', 'msg': $('#prompt').val() } );
+		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
 		$('#prompt').val('');
