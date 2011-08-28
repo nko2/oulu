@@ -58,35 +58,65 @@ app.get('/', function(req, res) {
 	});
 });
 
-/* Setup io.sockets */
-(function() {
+/* Temporary Database for users in memory */
+(function UserDatabase() {
 	
-	var client, shells;
+	/* Constructor */
+	function UserDatabase() {
+	}
 	
-	/* Web browser -- the true client */
-	client = io.of('/client');
-	
-	client.on('connection', function (client_socket) {
-		console.log('DEBUG: client: CONNECTION!');
-		
-		client_socket.on('icecap.command', function(name, tokens) {
-			console.log( 'DEBUG: client_socket.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-			
-		});
+	/* Get user record */
+	UserDatabase.prototype.get = (function(key, fn) {
 		
 	});
 	
-	/* User's shell daemon (there is icecapd) -- the true backend */
-	shell = io.of('/shell');
+	/* Set user record */
+	UserDatabase.prototype.set = (function(key, values, fn) {
+	});
 	
-	shell.on('connection', function (shell_socket) {
-		console.log('DEBUG: shell: CONNECTION!');
+	/* Delete user record */
+	UserDatabase.prototype.del = (function(key, fn) {
 		
-		shell_socket.on('icecap-event', function(name, tokens) {
-			console.log( 'DEBUG: shell_socket.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
-			if(client) client.emit('icecap-event', name, tokens);
+	});
+	
+	return UserDatabase;
+});
+
+/* Setup io.sockets */
+(function() {
+	
+	var users = new UserDatabase(),
+	    browsers = io.of('/client'), // Web browsers
+	    shells = io.of('/shell'); // User's shell daemons (connected to local icecapd)
+	
+	// New browser event
+	browsers.on('connection', function (browser) {
+		console.log('DEBUG: browser connected!');
+		
+		// Browser sends an icecap.command event
+		browser.on('icecap.command', function(name, tokens) {
+			console.log( 'DEBUG: browser.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			
 		});
 		
+		// Browser disconnects
+		browser.on('disconnect', function () {
+		});
+	});
+	
+	// New shell event
+	shells.on('connection', function (shell) {
+		console.log('DEBUG: shell connected!');
+		
+		// Shell sends an icecap-event
+		shell.on('icecap-event', function(name, tokens) {
+			console.log( 'DEBUG: shell.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			if(browsers) browsers.emit('icecap-event', name, tokens);
+		});
+		
+		// Shell daemon disconnects
+		shell.on('disconnect', function () {
+		});
 	});
 
 })();
