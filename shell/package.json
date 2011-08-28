@@ -1,6 +1,6 @@
 {
-  "name": "icecapd",
-  "description": "Node proxy for local icecapd",
+  "name": "icecapjsd",
+  "description": "Local daemon to relay icecapd to remote webserver",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -9,6 +9,7 @@
   "engines": {
     "node": "*"
   },
+  "bin": { "icecapjsd": "./icecapjsd" },
   "dependencies": {
     "init": "*",
     "icecap": "*",
