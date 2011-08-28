@@ -3,8 +3,19 @@
 /* Init window */
 function init() {
 	
-	//var socket = io.connect('http://localhost:3000');
-	var socket = io.connect('http://localhost:3000/client');
+	var socket = io.connect('/client');
+
+	// set cookie when receiving api key
+	socket.on('joined', function (apikey) {
+		$.cookie('the_magic_oulu_cookie', apikey, { expires: 365, path: '/' });
+		console.log('Magic cookie set with apikey '+ apikey);
+	});
+	
+	// request api key if cookie not found
+	if (! $.cookie('the_magic_oulu_cookie')) {
+		console.log('Requesting api key from server');
+		socket.emit('create');
+	};
 	
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {

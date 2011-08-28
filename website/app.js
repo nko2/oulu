@@ -88,6 +88,7 @@ app.get('/setup', function(req, res) {
 		
 		// Browser creates a new session
 		browser.on('create', function() {
+			console.log('Client requested new api key');
 			sessions.create(function(err, sess) {
 				if(err) {
 					console.log('Error: ' + err);
@@ -96,6 +97,7 @@ app.get('/setup', function(req, res) {
 				}
 				session = sess;
 				browser.emit('joined', session.apikey);
+				console.log('Sent api key' + session.apikey);
 			});
 		});
 		
