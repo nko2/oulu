@@ -70,11 +70,11 @@ function init() {
 				}
 				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+ '<div style="">'+data.channel+'</div>'+
 					escape(HHmm(data.time))+
-					' &lt;<span style="font-weight: bold;">'+
+					' &lt;<span style="font-weight: bold; color: black;">'+
 					escape(data.presence)+
-					'</span>&gt; '+
+					'</span>&gt; <span style="color: black;">'+
 					make_urls(escape(data.msg))+
-					'<hr/></div>');
+					'</span><hr/></div>');
 				$('.ircrow').fadeIn('slow');
 				if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 				if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
