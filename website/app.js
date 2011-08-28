@@ -78,7 +78,7 @@ app.get('/', function(req, res) {
 		browser.on('get-gravatar', function(email, options, https) {
 			var undefined,
 			    options = options || {},
-			    https = https || false;
+			    https = https || false,
 			    url;
 			
 			try {
