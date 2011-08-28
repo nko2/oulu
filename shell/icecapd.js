@@ -108,7 +108,9 @@ init.simple({
 			// Lets handle succesful connection
 			website_socket.on('disconnect', function () {
 				util.log('Webserver disconnected!');
-				website_socket.removeAllListeners();
+				website_socket.removeAllListeners('error');
+				website_socket.removeAllListeners('connect');
+				website_socket.removeAllListeners('icecap.command');
 				icecap.removeListener('event', icecap_event);
 				do_connection();
 			});
