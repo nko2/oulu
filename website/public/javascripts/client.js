@@ -7,11 +7,13 @@ function init() {
 	    avatars = {},
 	    big_avatars = {};
 	
+	function escape(str) { return $('<span/>').text(str).html(); }
+	
 	/* */
 	socket.on('status-reply', function(backends) {
 		var b;
 		for(b in backends) if(backends.hasOwnProperty(b)) {
-			$('#backends').html('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="" />');
+			$('#backends').html('<img src="/images/' + ( (backends[b]===true) ? 'green' : 'red' ) + '-ball-18x18.png" width="18" height="18" alt="'+escape(b)+'" />');
 		}
 	});
 	
@@ -66,18 +68,17 @@ function init() {
         function handle_msg(data) {
 	    console.log("Handling new MSG.");
 	    get_avatar(data['address'], function(url, bigurl) {
-		function escape(str) { return $('<span/>').text(str).html(); }
 		function img() {
 		    if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 		    return '';
 		}
-		$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
+		$('#ircrows').prepend('<div class="ircrow" style="display: none;"><div style="float: left; margin-right: 8px;"'+img()+'</div> <div style="">'+ data.channel +'</div>'+
 				      escape(HHmm(data.time))+
-				      ' &lt;'+
+				      ' &lt;<span style="font-weight: bold; color: black;">'+
 				      escape(data.presence)+
-				      '&gt; '+
+				      '</span>&gt; <span style="color: black;">'+
 				      make_urls(escape(data.msg))+
-				      '<hr/></div>');
+				      '</span><hr/></div>');
 		$('.ircrow').fadeIn('slow');
 		if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 		if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
@@ -90,7 +91,7 @@ function init() {
 	socket.on('icecap-event', function (name, data) {
 		console.log("icecap-event received: '" + name + "'");
 		if(name == 'msg') {
-		    handle_msg(data);
+		    handle_msg(data);	
 		};
 		if(name == 'channel_presence_added') {
 			function escape(str) { return $('<span/>').text(str).html(); }
