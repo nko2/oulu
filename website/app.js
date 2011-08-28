@@ -60,6 +60,14 @@ app.get('/', function(req, res) {
 	res.render('index', { title : 'NKO Oulu' });
 });
 
+app.get('/login', function(req, res) {
+	res.render('login', { title : 'Login - NKO Oulu' });
+});
+
+app.get('/setup', function(req, res) {
+	res.render('setup', { title : 'Setup - NKO Oulu' });
+});
+
 /* Setup io.sockets */
 (function() {
 	
