@@ -12,6 +12,7 @@ function init() {
 		if((!_me.mypresence) && data.mypresence) {
 			_me.mypresence = data.mypresence;
 			_me.network = data.network;
+			_me.address = data.address;
 		}
 	}
 	
