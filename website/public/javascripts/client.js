@@ -5,7 +5,8 @@ function init() {
 	
 	var socket = io.connect('/client'),
 	    avatars = {},
-	    big_avatars = {};
+	    big_avatars = {},
+	    me = {};
 	
 	function escape(str) { return $('<span/>').text(str).html(); }
 	
