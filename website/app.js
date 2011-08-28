@@ -130,10 +130,14 @@ app.get('/', function(req, res) {
 		});
 		
 		// Browser disconnects
-		browser.on('disconnect', function () {
+		browser.once('disconnect', function () {
 			console.log( 'DEBUG: browser disconnected');
 			session && session.browser && session.part(browser);
-			console.log('session = ' + sys.inspect(session));
+			//console.log('session = ' + sys.inspect(session));
+			browser.removeAllListeners('icecap.command');
+			browser.removeAllListeners('join');
+			browser.removeAllListeners('create');
+			browser.removeAllListeners('get-gravatar');
 		});
 	});
 	
