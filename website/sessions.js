@@ -46,12 +46,44 @@ function get_next_free_apikey(fn) {
 		return out;
 	}
 	
-	// FIXME: Implement couchdb support
-	var undefined, apikey;
-	do {
-		apikey = random_string(32);
-	} while(_sessions[apikey]);
-	fn && fn(undefined, apikey);
+	var undefined, 
+	    error,
+		apikey, 
+		counter = 0,
+		max_counter = config.max_loop_counter || 100;
+	
+	// If couchdb is enabled
+	if(users_db) {
+		function loop(next) {
+			counter++;
+			if(counter >= max_counter) next(new Error('Maximum loop amount exceeded'));
+			var apikey = random_string(32);
+			users_db.get(apikey, function (err, doc) {
+				if(err || (!doc)) next(undefined, apikey);
+				else loop(next);
+			});
+		}
+		
+		loop(function(err, apikey) {
+			if(err) {
+				fn && fn(err);
+			} else {
+				fn && fn(undefined, apikey);
+			}
+		});
+		
+	// ..or memory only:
+	} else {
+		do {
+			counter++;
+			if(counter >= max_counter) {
+				error = new Error('Maximum loop amount exceeded');
+				break;
+			}
+			apikey = random_string(32);
+		} while(_sessions[apikey]);
+		fn && fn(error, apikey);
+	}
 }
 
 /* Create new apikey */
@@ -63,21 +95,50 @@ lib.create = (function(fn) {
 			fn && fn(err);
 			return;
 		}
-		if(_sessions[apikey] === undefined) {
-			_sessions[apikey] = new Session(apikey);
+		// If couchdb is enabled
+		if(users_db) {
+			users_db.save(apikey, {'apikey':apikey}, function (err, res) {
+				if(err) {
+					fn&&fn(err);
+					return;
+				}
+				
+				if(_sessions[apikey] === undefined) {
+					_sessions[apikey] = new Session(apikey);
+				}
+				
+			});
+		} else {
+			if(_sessions[apikey] === undefined) {
+				_sessions[apikey] = new Session(apikey);
+			}
+			fn && fn(undefined, _sessions[apikey]);
 		}
-		fn && fn(undefined, _sessions[apikey]);
 	});
 });
 
 /* Fetch existing session */
 lib.fetch = (function(apikey, fn) {
-	// FIXME: Implement couchdb
-	var undefined;
-	if(!_sessions[apikey]) {
-		fn(new Error('apikey is not defined!'));
+	// If couchdb is enabled
+	if(users_db) {
+		if(_sessions[apikey]) {
+			fn(undefined, _sessions[apikey] );
+		} else {
+			db.get(apikey, function (err, doc) {
+				if(err) {
+					fn&&fn(err);
+					return;
+				}
+				fn&&fn(undefined, new Session(apikey));
+			});
+		}
 	} else {
-		fn(undefined, _sessions[apikey] );
+		var undefined;
+		if(!_sessions[apikey]) {
+			fn(new Error('apikey is not defined!'));
+		} else {
+			fn(undefined, _sessions[apikey] );
+		}
 	}
 });
 
