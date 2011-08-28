@@ -37,17 +37,17 @@ function init() {
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('icecap.command', 'msg', { 'presence': 'jheusala2', 'msg': $('#prompt').val() } );
+		socket.emit('icecap.command', 'msg', { 'msg': $('#prompt').val() } );
 		
 		// clear the text field
 		$('#prompt').val('');
 	});
 
 	// set nick
-	$('#loginform').submit(function (event) {
+	/*$('#loginform').submit(function (event) {
 		event.preventDefault();
 		socket.emit('login', $('#nick').val());
-	});
+	});*/
 }
 
 // Convert unix-timestamp to HH:MM format
