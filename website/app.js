@@ -79,7 +79,7 @@ app.get('/setup', function(req, res) {
 		
 		// Browser creates a new session
 		browser.on('create', function() {
-			session = sessions.create(function(err, sess) {
+			sessions.create(function(err, sess) {
 				if(err) {
 					console.log('Error: ' + err);
 					browser.emit('error', 'Failed to create apikey');
@@ -100,7 +100,7 @@ app.get('/setup', function(req, res) {
 			}
 			
 			console.log('Joining...');
-			sessions.fetch(function(err, sess) {
+			sessions.fetch(apikey, function(err, sess) {
 				if(err) {
 					console.log('Error: Failed to validate apikey');
 					browser.emit('error', 'Failed to validate apikey');
@@ -132,7 +132,7 @@ app.get('/setup', function(req, res) {
 		
 		// Shell creates a new session
 		shell.on('create', function() {
-			session = sessions.create(function(err, sess) {
+			sessions.create(function(err, sess) {
 				if(err) {
 					console.log('Error: ' + err);
 					shell.emit('error', 'Failed to create apikey');
@@ -153,7 +153,7 @@ app.get('/setup', function(req, res) {
 			}
 			
 			console.log('Joining...');
-			sessions.fetch(function(err, sess) {
+			sessions.fetch(apikey, function(err, sess) {
 				if(err) {
 					console.log('Error: Failed to validate apikey');
 					shell.emit('error', 'Failed to validate apikey');

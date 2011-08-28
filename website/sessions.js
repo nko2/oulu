@@ -28,7 +28,7 @@ Session.prototype.part = (function(socket) {
 });
 
 /* Get new apikey */
-function get_next_free_api_key(fn) {
+function get_next_free_apikey(fn) {
 	
 	function random_string(length) {
 		var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz",
@@ -44,19 +44,22 @@ function get_next_free_api_key(fn) {
 	do {
 		apikey = random_string(32);
 	} while(_sessions[apikey]);
-	return apikey;
+	fn && fn(undefined, apikey);
 }
 
 /* Create new apikey */
 lib.create = (function(fn) {
 	// FIXME: Implement couchdb support
 	var undefined;
-	get_next_free_api_key(function(err, api_key) {
-		if(err) return fn(err);
+	get_next_free_apikey(function(err, apikey) {
+		if(err) {
+			fn && fn(err);
+			return;
+		}
 		if(_sessions[apikey] === undefined) {
 			_sessions[apikey] = new Session(apikey);
 		}
-		fn(undefined, _sessions[apikey]);
+		fn && fn(undefined, _sessions[apikey]);
 	});
 });
 
@@ -64,7 +67,11 @@ lib.create = (function(fn) {
 lib.fetch = (function(apikey, fn) {
 	// FIXME: Implement couchdb
 	var undefined;
-	fn(undefined, _sessions[apikey] );
+	if(!_sessions[apikey]) {
+		fn(new Error('apikey is not defined!'));
+	} else {
+		fn(undefined, _sessions[apikey] );
+	}
 });
 
 /* EOF */
