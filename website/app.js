@@ -56,8 +56,12 @@ app.get('/', function(req, res) {
 	res.render('index', { title : 'NKO Oulu' });
 });
 
+app.get('/login', function(req, res) {
+	res.render('login', { title : 'Login - NKO Oulu' });
+});
+
 app.get('/setup', function(req, res) {
-	res.render('setup', { title : 'Setup account - NKO Oulu' });
+	res.render('setup', { title : 'Setup - NKO Oulu' });
 });
 
 /* Temporary Database for users in memory */

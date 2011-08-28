@@ -1,24 +1,18 @@
 div(class="row")
 	div(class="span15 columns offset1")
 		div(id="input")
-			h4 Log In with Existing Account
-			form(id="loginform")
-				input(type="text",name='username',id="prompt",placeholder="Username",autocomplete='off')
-				br
-				input(type="password",name='password',id="prompt",placeholder="Password",autocomplete='off')
-				br
-				button(type='submit', class='button positive')
-					| Login
-			
-			hr
 			h4 Setup New Account
 			form(id="signupform")
 				input(type="text",name='username',id="prompt",placeholder="Username",autocomplete='off')
 				br
 				input(type="password",name='password',id="prompt",placeholder="Password",autocomplete='off')
 				br
-				input(type="password",name='password2',id="prompt",placeholder="Password",autocomplete='off')
+				input(type="password",name='password2',id="prompt",placeholder="Password again",autocomplete='off')
+				br
 				br
 				button(type='submit', class='button positive')
 					| Setup
+				a(href='/setup', class='button negative')
+					| Login
+
 			hr
