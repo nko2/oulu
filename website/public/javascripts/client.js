@@ -107,19 +107,19 @@ function init() {
 		};
 		if(name == 'channel_presence_added') {
 			function escape(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 40px;">'+
                     escape(HHmm(data.time))+ ' '+
                     escape(data.presence)+
-                    ' joined'+
+                    ' joined '+ data.channel +
                     '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 		};
 		if(name == 'channel_presence_removed') {
 			function escape(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 40px;">'+
                     escape(HHmm(data.time))+ ' '+
                     escape(data.presence)+
-                    ' left'+
+                    ' left '+ data.channel +
                     '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 		};
