@@ -9,6 +9,7 @@ function init() {
 	socket.on('joined', function (apikey) {
 		$.cookie('the_magic_oulu_cookie', apikey, { expires: 365, path: '/' });
 		console.log('Magic cookie set with apikey '+ apikey);
+		$('#apikey').val(apikey);
 	});
 	
 	socket.on('rejected-apikey', function () {

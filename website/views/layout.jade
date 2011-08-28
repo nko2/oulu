@@ -30,9 +30,12 @@ html(lang="en")
 					div(class="modal",style="position: absolute; top: 40px; left: 55%; margin: 0 auto; z-index: 1; display: none;")
 						//div(class="modal-header")
 						//	h3 Preferences
-						div(class="modal-body",style="margin-bottom: 50px;")
+						div(class="modal-body",style="margin-bottom: 110px;")
 							form(id="settingsform",style="float: left; margin: 0,0,0,0;")
+								p nick
 								input(type="text",id="nick",placeholder="set your nick here",autocomplete='off')
+								p api key
+								input(type="text",id="apikey",placeholder="api key",autocomplete='off')
 						div(class="modal-footer")
 							a(href="#",class="btn primary") Commit
 							a(href="#",class="btn secondary") Cancel
