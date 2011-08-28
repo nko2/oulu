@@ -9,10 +9,11 @@ function init() {
 	/* Get avatar */
 	function get_avatar(email, fn) {
 		if(avatars[email]) fn(avatars[email]);
-		socket.emit('get-gravatar', {s: '100', r: 'pg', d: '404'}, false, function(url) {
+		socket.once('set-gravatar', function(url) {
 			avatars[email] = url;
 			fn(avatars[email]);
 		});
+		socket.emit('get-gravatar', {s: '100', r: 'pg', d: '404'}, false);
 	}
 	
 	// set cookie if/when receiving api key
@@ -43,7 +44,7 @@ function init() {
 		if(name !== 'msg') return;
 		get_avatar(data['address'], function(url) {
 			function f(str) { return $('<div/>').text(str).html(); }
-			$('#ircrows').append('<div class="ircrow"><img src="'+url+ '" title="'+f(data['address'])+'"/> "+ f(HHmm(data.time)) +' &lt;'+ f(data.presence) +'&gt; '+ make_urls(f(data.msg)) +'</div>');
+			$('#ircrows').append('<div class="ircrow"><img src="'+url+'" title="'+f(data['address'])+'"/> "+ f(HHmm(data.time)) +' &lt;'+ f(data.presence) +'&gt; '+ make_urls(f(data.msg)) +'<hr/></div>');
 		});
 	});
 	
