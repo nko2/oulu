@@ -93,6 +93,8 @@ app.get('/setup', function(req, res) {
 				if(err) {
 					console.log('Error: ' + err);
 					browser.emit('error', 'Failed to create apikey');
+					browser.emit('join-failed');
+					browser.emit('rejected-apikey');
 					return;
 				}
 				session = sess;
@@ -107,6 +109,7 @@ app.get('/setup', function(req, res) {
 			if(session) {
 				console.log('Error: This browser was already joined to session.');
 				browser.emit('error', 'This browser was already joined to session!');
+				browser.emit('join-failed');
 				return;
 			}
 			
@@ -115,6 +118,8 @@ app.get('/setup', function(req, res) {
 				if(err) {
 					console.log('Error: Failed to validate apikey');
 					browser.emit('error', 'Failed to validate apikey');
+					browser.emit('join-failed');
+					browser.emit('rejected-apikey');
 					return;
 				}
 				session = sess;
@@ -146,6 +151,8 @@ app.get('/setup', function(req, res) {
 			sessions.create(function(err, sess) {
 				if(err) {
 					console.log('Error: ' + err);
+					shell.emit('join-failed');
+					shell.emit('rejected-apikey');
 					shell.emit('error', 'Failed to create apikey');
 					return;
 				}
@@ -159,6 +166,7 @@ app.get('/setup', function(req, res) {
 			console.log( 'DEBUG: shell joins with apikey = ' + sys.inspect(apikey) );
 			if(session) {
 				console.log('Error: This shell was already joined to session.');
+				shell.emit('join-failed');
 				shell.emit('error', 'This shell was already joined to session!');
 				return;
 			}
@@ -167,6 +175,8 @@ app.get('/setup', function(req, res) {
 			sessions.fetch(apikey, function(err, sess) {
 				if(err) {
 					console.log('Error: Failed to validate apikey');
+					shell.emit('join-failed');
+					shell.emit('rejected-apikey');
 					shell.emit('error', 'Failed to validate apikey');
 					return;
 				}
