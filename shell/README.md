@@ -64,3 +64,10 @@ Running icecapd
 Configuring it in crontab
 -------------------------
 
+List configuration settings:
+
+	./icecapd.js config
+
+Set apikey:
+
+	./icecapd.js config-set apikey ab2cd1ef3gh4g12412
