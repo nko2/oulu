@@ -16,7 +16,7 @@ function init() {
 			} else {
 				avatars[email] = url;
 			}
-			fn(url);
+			if(big_avatars[email] && avatars[email]) fn(avatars[email], big_avatars[email]);
 		}
 		socket.once('set-gravatar', do_set_gravatar);
 		socket.once('set-gravatar', do_set_gravatar);
@@ -50,15 +50,13 @@ function init() {
 		console.log("icecap-event received: '" + name + "'");
 		if(name !== 'msg') return;
 		
-		get_avatar(data['address'], function(url) {
-			var avator;
+		get_avatar(data['address'], function(url, bigurl) {
 			function escape(str) { return $('<span/>').text(str).html(); }
 			function img() {
-				avator = true;
-				if(url) return '<img class="avatorimgurl" src="'+url+'" title="'+escape(data['address'])+'"/> ';
+				if(url) return '<a class="avatorimgurl" src="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
 				return '';
 			}
-			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
 				escape(HHmm(data.time))+
 				' &lt;'+
 				escape(data.presence)+
@@ -66,7 +64,7 @@ function init() {
 				make_urls(escape(data.msg))+
 				'<hr/></div>');
 			$('.ircrow').fadeIn('slow');
-			if(avator) $('.avatorimgurl').imgPreview({ imgCSS: { width: 200 } });
+			if(url) $('.avatorimgurl').imgPreview({ imgCSS: { width: 200 } });
 			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
 				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 			};
