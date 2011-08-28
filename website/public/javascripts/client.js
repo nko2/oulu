@@ -11,7 +11,7 @@ function init() {
 		console.log('Magic cookie set with apikey '+ apikey);
 	});
 	
-	socket.on('rejected-apikey') function () {
+	socket.on('rejected-apikey', function () {
 		console.log('api key rejected, requesting new api key from server');
 		socket.emit('create');
 	});
