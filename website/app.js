@@ -220,6 +220,9 @@ app.get('/custom-guide', function(req, res) {
 		shell.on('disconnect', function () {
 			console.log('Shell disconnects');
 			session && session.shell && session.part(shell);
+			shell.removeAllListeners('icecap.command');
+			shell.removeAllListeners('join');
+			shell.removeAllListeners('create');
 		});
 	});
 
