@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* icecapd */
 
 var init = require('init'),
@@ -22,16 +23,20 @@ var init = require('init'),
 	if(!config.dir) config.dir = dir;
 })();
 
-/* Read (optional) configuration file */
+/* Setup configurations */
 (function() {
-	
+	var arg = process.argv[2],
+	    value = process.argv[3];
+	if((arg === 'config') && value) {
+		
+	}
 })();
 
 /* Setup standard init CLI */
 init.simple({
 	pidfile : config.pidfile || path.resolve(config.dir, 'run.pid'),
 	logfile : config.logfile,
-	command : process.argv[3],
+	command : process.argv[2],
 	run     : function () {
 		
 		var io = require('socket.io-client'),
