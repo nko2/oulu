@@ -4,6 +4,7 @@
 var init = require('init'),
     fs = require('fs'),
     path = require('path'),
+    sys = require('sys'),
     config = {};
 
 /* Read (optional) configuration file */
@@ -21,16 +22,35 @@ var init = require('init'),
 	}
 	
 	if(!config.dir) config.dir = dir;
+
+	/* Setup configurations */
+	(function() {
+		var arg = process.argv[2],
+		    key = process.argv[3],
+		    value = process.argv[4],
+			changed,
+			exit;
+		if((arg === 'config-set') && key) {
+			config[key] = value;
+			changed = true;
+			exit = true;
+		}
+		if(arg === 'config') {
+			console.log('Config from file `' + file + "`:" );
+			console.log(sys.inspect(config));
+			exit = true;
+		}
+		
+		if(changed) {
+			fs.writeFileSync(file, JSON.stringify(config));
+			console.log('Saved.');
+		}
+		
+		if(exit) process.exit(0);
+	})();
+	
 })();
 
-/* Setup configurations */
-(function() {
-	var arg = process.argv[2],
-	    value = process.argv[3];
-	if((arg === 'config') && value) {
-		
-	}
-})();
 
 /* Setup standard init CLI */
 init.simple({
@@ -40,7 +60,6 @@ init.simple({
 	run     : function () {
 		
 		var io = require('socket.io-client'),
-		    sys = require('sys'),
 		    util = require('util'),
 		    website_socket = io.connect(config.iotarget || 'http://localhost:3000/shell'),
 		    icecap = require('icecap').create();
