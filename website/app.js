@@ -69,16 +69,17 @@ var UserDatabase = (function UserDatabase() {
 	
 	/* Get user record */
 	UserDatabase.prototype.get = (function(key, fn) {
-		
+		fn();
 	});
 	
 	/* Set user record */
 	UserDatabase.prototype.set = (function(key, values, fn) {
+		fn();
 	});
 	
 	/* Delete user record */
 	UserDatabase.prototype.del = (function(key, fn) {
-		
+		fn();
 	});
 	
 	return UserDatabase;
