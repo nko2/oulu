@@ -19,6 +19,14 @@ Installation to custom shell service
 
 ### Install icecapd
 
+hg clone http://hg.dovecot.org/icecap/
+cd icecap
+./autogen.sh
+mkdir -p $HOME/opt/icecap
+./configure --prefix=$HOME/opt/icecap
+make
+make install
+
 ### Install node
 
 ### Install npm
