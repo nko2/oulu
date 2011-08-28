@@ -217,7 +217,7 @@ app.get('/custom-guide', function(req, res) {
 		});
 		
 		// Shell daemon disconnects
-		shell.on('disconnect', function () {
+		shell.once('disconnect', function () {
 			console.log('Shell disconnects');
 			session && session.shell && session.part(shell);
 			shell.removeAllListeners('icecap.command');
