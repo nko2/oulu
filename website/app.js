@@ -186,6 +186,7 @@ app.get('/custom-guide', function(req, res) {
 				}
 				session = sess;
 				shell.emit('joined', session.apikey);
+				if(session && session.browser) session.browser.emit('status-reply', {'shell': ((session && session.shell) ? true : false) });
 			});
 		});
 		
@@ -211,6 +212,7 @@ app.get('/custom-guide', function(req, res) {
 				session = sess;
 				session.join(shell, 'shell');
 				shell.emit('joined', session.apikey);
+				if(session && session.browser) session.browser.emit('status-reply', {'shell': ((session && session.shell) ? true : false) });
 				console.log('Shell joined!');
 			});
 		});
@@ -229,6 +231,7 @@ app.get('/custom-guide', function(req, res) {
 			shell.removeAllListeners('icecap.command');
 			shell.removeAllListeners('join');
 			shell.removeAllListeners('create');
+			if(session && session.browser) session.browser.emit('status-reply', {'shell': ((session && session.shell) ? true : false) });
 		});
 	});
 
