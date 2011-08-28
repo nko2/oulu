@@ -55,7 +55,7 @@ $(document).ready(function() {
 	init();	
 
 	$('#toggle-button').click(function() {
-		$('.modal').toggle('slow', function() {
+		$('.modal').slideToggle('slow', function() {
  		});
 	});
 
