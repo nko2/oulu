@@ -79,8 +79,14 @@ app.get('/', function(req, res) {
 			var undefined,
 			    options = options || {},
 			    https = https || false;
-			    url = email ? gravatar.url(email, options, https) : '';
-			browser.emit('set-gravatar', email, url);
+			    url;
+			
+			try {
+				url = email ? gravatar.url(email, options, https) : '';
+			} finally {
+				url = '';
+				browser.emit('set-gravatar', email, url);
+			}
 		});
 		
 		// Browser creates a new session
