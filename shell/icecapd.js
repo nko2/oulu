@@ -106,7 +106,7 @@ init.simple({
 			});
 			
 			// Lets handle succesful connection
-			website_socket.on('disconnect', function () {
+			website_socket.once('disconnect', function () {
 				util.log('Webserver disconnected!');
 				website_socket.removeAllListeners('error');
 				website_socket.removeAllListeners('connect');
