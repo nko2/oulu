@@ -5,13 +5,41 @@
 /* Temporary in memory database for User Sessions */
 var _sessions = [],
     lib = module.exports = {},
+    sys = require('sys'),
     config = require('./safe-config.js'),
-	cradle, cradle_con, users_db;
+	cradle, cradle_con, users_db, db_name;
 
 if(config.couchdb) {
-	cradle = require('cradle'),
-	cradle_con = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options),
-	users_db = connection.database('users');
+	console.log('Enabling CouchDB...');
+	cradle = require('cradle');
+	cradle_con = new(cradle.Connection)(config.couchdb.host, config.couchdb.port, config.couchdb.options);
+	db_name = config.couchdb.db || 'users';
+	
+	function setup(call) {
+		var undefined, db = cradle_con.database(db_name);
+		db.exists(function(err, exists) {
+			if(err) return call(err);
+			console.log('CouchDB database ' + db_name + ': ' + (exists ? 'exists' : 'MISSING') );
+			if(!exists) {
+				console.log('Creating new database...');
+				db.create();
+			}
+			call(undefined, db);
+		});
+	}
+	
+	setup(function(err, db) {
+		if(err) {
+			console.log('Error: ' + sys.inspect(err));
+			return;
+		}
+		if(db) {
+			console.log('CouchDB ready. Relax.');
+			users_db = db;
+			return;
+		}
+		console.log('Error: Missing database?');
+	});
 }
 
 /* Session constructor */
@@ -124,7 +152,7 @@ lib.fetch = (function(apikey, fn) {
 		if(_sessions[apikey]) {
 			fn(undefined, _sessions[apikey] );
 		} else {
-			db.get(apikey, function (err, doc) {
+			users_db.get(apikey, function (err, doc) {
 				if(err) {
 					fn&&fn(err);
 					return;
