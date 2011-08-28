@@ -62,31 +62,35 @@ function init() {
 		console.log('Existing cookie found, sending apikey to server');
 		socket.emit('join',  $.cookie('the_magic_oulu_cookie'));
 	};
+
+        function handle_msg(data) {
+	    console.log("Handling new MSG.");
+	    get_avatar(data['address'], function(url, bigurl) {
+		function escape(str) { return $('<span/>').text(str).html(); }
+		function img() {
+		    if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
+		    return '';
+		}
+		$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
+				      escape(HHmm(data.time))+
+				      ' &lt;'+
+				      escape(data.presence)+
+				      '&gt; '+
+				      make_urls(escape(data.msg))+
+				      '<hr/></div>');
+		$('.ircrow').fadeIn('slow');
+		if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+		if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
+		    $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
+		};
+	    });
+	}    
 	
 	// receive line from IRC
 	socket.on('icecap-event', function (name, data) {
 		console.log("icecap-event received: '" + name + "'");
 		if(name == 'msg') {
-		
-			get_avatar(data['address'], function(url, bigurl) {
-				function escape(str) { return $('<span/>').text(str).html(); }
-				function img() {
-					if(url) return '<a class="imgurl" href="'+bigurl+'"><img src="'+url+'" title="'+escape(data['address'])+'"/></a>';
-					return '';
-				}
-				$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+' '+
-					escape(HHmm(data.time))+
-					' &lt;'+
-					escape(data.presence)+
-					'&gt; '+
-					make_urls(escape(data.msg))+
-					'<hr/></div>');
-				$('.ircrow').fadeIn('slow');
-				if(url) $('.imgurl').imgPreview({ imgCSS: { width: 200 } });
-				if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
-					$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
-				};
-			});
+		    handle_msg(data);
 		};
 		if(name == 'channel_presence_added') {
 			function escape(str) { return $('<span/>').text(str).html(); }
@@ -112,7 +116,7 @@ function init() {
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-	        socket.emit('icecap-event', 'msg', { 'time':new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
+	        handle_msg({ 'time': new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() });
 		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
