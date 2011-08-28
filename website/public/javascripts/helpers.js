@@ -23,6 +23,6 @@ function make_urls(text) {
 	var regex = /(https?:\/\/[^\s]+)/g;
 	
 	return text.replace(regex, function(url) {
-		return '<a href=' + url + '>' + url + '</a>';
+		return '<a href="' + url + '">' + url + '</a>';
 	});
 };
