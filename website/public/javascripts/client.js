@@ -45,7 +45,7 @@ function init() {
 		get_avatar(data['address'], function(url) {
 			function f(str) { return $('<span/>').text(str).html(); }
 			function img() {
-				if(url) return '<img src="'+url+'" title="'+f(data['address'])+'"/> ';
+				if(url) return '<img class="imgurl" src="'+url+'" title="'+f(data['address'])+'"/> ';
 				return '';
 			}
 			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+

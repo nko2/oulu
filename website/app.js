@@ -97,7 +97,7 @@ app.get('/custom-guide', function(req, res) {
 			} finally {
 				if(!url) url = '';
 				console.log('Emiting URL: ' + sys.inspect(url));
-				browser.emit('set-gravatar', email, url);
+				browser.emit('set-gravatar', email, url, options, https);
 			}
 		});
 		
