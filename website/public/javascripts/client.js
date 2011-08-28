@@ -11,10 +11,10 @@ function init() {
 	function get_avatar(email, fn) {
 		if(avatars[email]) return fn(avatars[email]);
 		function do_set_gravatar(email, url, options) {
-			if(options && (options.s <= 50) ) {
-				avatars[email] = url;
-			} else {
+			if(options && (options.s >= 50) ) {
 				big_avatars[email] = url;
+			} else {
+				avatars[email] = url;
 			}
 			fn(url);
 		}
