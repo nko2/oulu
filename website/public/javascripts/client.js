@@ -4,16 +4,24 @@
 function init() {
 	
 	var socket = io.connect('/client'),
-	    avatars = {};
+	    avatars = {},
+	    big_avatars = {};
 
 	/* Get avatar */
 	function get_avatar(email, fn) {
 		if(avatars[email]) return fn(avatars[email]);
-		socket.once('set-gravatar', function(email, url) {
-			avatars[email] = url;
+		function do_set_gravatar(email, url, options) {
+			if(options.s <= 50) {
+				avatars[email] = url;
+			} else {
+				big_avatars[email] = url;
+			}
 			fn(url);
-		});
+		}
+		socket.once('set-gravatar', do_set_gravatar);
+		socket.once('set-gravatar', do_set_gravatar);
 		socket.emit('get-gravatar', email, {s: '32', r: 'pg'}, false);
+		socket.emit('get-gravatar', email, {s: '200', r: 'pg'}, false);
 	}
 	
 	// set cookie if/when receiving api key
@@ -43,9 +51,11 @@ function init() {
 		if(name !== 'msg') return;
 		
 		get_avatar(data['address'], function(url) {
+			var avator;
 			function f(str) { return $('<span/>').text(str).html(); }
 			function img() {
-				if(url) return '<img class="imgurl" src="'+url+'" title="'+f(data['address'])+'"/> ';
+				avator = true;
+				if(url) return '<img class="avatorimgurl" src="'+url+'" title="'+f(data['address'])+'"/> ';
 				return '';
 			}
 			$('#ircrows').prepend('<div class="ircrow" style="display: none;">'+img()+
@@ -56,6 +66,7 @@ function init() {
 				make_urls(f(data.msg))+
 				'<hr/></div>');
 			$('.ircrow').fadeIn('slow');
+			if(avator) $('.avatorimgurl').imgPreview({ imgCSS: { width: 200 } });
 			if (data.msg.match(/(.*).(jpg|gif|jpeg|png)$/)) {
 				$('.imgurl').imgPreview({ imgCSS: { width: 200 } });
 			};
