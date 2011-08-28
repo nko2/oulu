@@ -22,6 +22,11 @@ var init = require('init'),
 	if(!config.dir) config.dir = dir;
 })();
 
+/* Read (optional) configuration file */
+(function() {
+	
+})();
+
 /* Setup standard init CLI */
 init.simple({
 	pidfile : config.pidfile || path.resolve(config.dir, 'run.pid'),
