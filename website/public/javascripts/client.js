@@ -11,7 +11,7 @@ function init() {
 		if(avatars[email]) return fn(avatars[email]);
 		socket.once('set-gravatar', function(email, url) {
 			avatars[email] = url;
-			fn(avatars[email]);
+			fn(url);
 		});
 		socket.emit('get-gravatar', email, {s: '100', r: 'pg', d: '404'}, false);
 	}
