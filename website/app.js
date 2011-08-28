@@ -126,8 +126,8 @@ app.get('/setup', function(req, res) {
 				}
 				session = sess;
 				session.join(browser, 'browser');
-				console.log('Browser joined!');
 				browser.emit('joined', session.apikey);
+				console.log('Browser joined!');
 			});
 		});
 		
@@ -186,8 +186,8 @@ app.get('/setup', function(req, res) {
 				}
 				session = sess;
 				session.join(shell, 'shell');
-				shell.emit('Shell joined', session.apikey);
-				console.log('Joined!');
+				shell.emit('joined', session.apikey);
+				console.log('Shell joined!');
 			});
 		});
 		
