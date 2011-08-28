@@ -45,11 +45,11 @@ function init() {
 		
 		get_avatar(data['address'], function(url) {
 			function f(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').prepend('<div class="ircrow"><img src="'+
-				url+
-				'" title="'+
-				f(data['address'])+
-				'"/> '+
+			function img() {
+				if(url) return '<img src="'+url+'" title="'+f(data['address'])+'"/> ';
+				return '';
+			}
+			$('#ircrows').prepend('<div class="ircrow">'+img()+
 				f(HHmm(data.time))+
 				' &lt;'+
 				f(data.presence)+
