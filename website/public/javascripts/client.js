@@ -8,6 +8,14 @@ function init() {
 	    big_avatars = {},
 	    _me = {'networks':{}};
 	
+	function update_my_list(item, list) {
+		var i=0, length=list.length;
+		for(;i<length;i++) {
+			if(list[i] === item) return;
+		}
+		list.push(item);
+	}
+	
 	function update_me(data) {
 		// Select first mypresence
 		if((!_me.mypresence) && data.mypresence) {
@@ -15,6 +23,28 @@ function init() {
 			_me.network = data.network;
 			_me.address = data.address;
 		}
+		
+		function setup_mypresence(network, data) {
+			if(!data.mypresence) return;
+			if(!network.mypresences) network.mypresences = {};
+			network.mypresences[data.mypresence] = {};
+		}
+		
+		function setup_channel(network, data) {
+			if(!data.channel) return;
+			if(!network.channels) network.channels = {};
+			network.channels[data.channel] = {};
+		}
+		
+		function setup_network(me, data) {
+			if(!data.network) return;
+			if(!me.networks) me.networks = {};
+			me.networks[data.network] = {};
+			setup_channel(me.networks[data.network], data);
+			setup_mypresence(me.networks[data.network], data);
+		}
+		
+		setup_network(_me, data);
 	}
 	
 	function escape(str) { return $('<span/>').text(str).html(); }
