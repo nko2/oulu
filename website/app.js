@@ -125,6 +125,7 @@ app.get('/setup', function(req, res) {
 					return;
 				}
 				session = sess;
+				session.join(browser, 'browser');
 				browser.emit('joined', session.apikey);
 			});
 		});
@@ -183,6 +184,7 @@ app.get('/setup', function(req, res) {
 					return;
 				}
 				session = sess;
+				session.join(shell, 'shell');
 				shell.emit('joined', session.apikey);
 			});
 		});
