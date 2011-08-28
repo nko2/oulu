@@ -141,6 +141,7 @@ app.get('/setup', function(req, res) {
 		browser.on('disconnect', function () {
 			console.log( 'DEBUG: browser disconnected');
 			session && session.browser && session.part(browser);
+			console.log('session = ' + sys.inspect(session));
 		});
 	});
 	
@@ -195,6 +196,7 @@ app.get('/setup', function(req, res) {
 		shell.on('icecap-event', function(name, tokens) {
 			console.log( 'DEBUG: shell.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
 			session && session.browser && session.browser.emit('icecap-event', name, tokens);
+			console.log('session = ' + sys.inspect(session));
 		});
 		
 		// Shell daemon disconnects
