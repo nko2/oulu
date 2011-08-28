@@ -71,13 +71,20 @@ app.get('/setup', function(req, res) {
 	
 	var sessions = require('./sessions.js'),
 	    browsers = io.of('/client'), // Web browsers
-	    shells = io.of('/shell'); // User's shell daemons (connected to local icecapd)
+	    shells = io.of('/shell'), // User's shell daemons (connected to local icecapd)
+		gravatar = require('gravatar');
 	
 	// New browser event
 	browsers.on('connection', function (browser) {
 		console.log('DEBUG: new browser connected!');
 		
 		var session;
+		
+		// Browser requests gravator url
+		browser.on('get-gravatar', function(email, options, https) {
+			var url = gravatar.url(email, options, https);
+			browser.emit('set-gravatar', email, url);
+		});
 		
 		// Browser creates a new session
 		browser.on('create', function() {
