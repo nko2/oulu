@@ -84,6 +84,15 @@ app.get('/custom-guide', function(req, res) {
 		
 		var session;
 		
+		// Browser requests a status
+		browser.on('status', function() {
+			if(session && session.shell) {
+				browser.emit('status-reply', ['shell']);
+			} else {
+				browser.emit('status-reply', []);
+			}
+		});
+		
 		// Browser requests gravator url
 		browser.on('get-gravatar', function(email, options, https) {
 			console.log('EVENT: get-gravatar: ' + sys.inspect(email) + ", " + sys.inspect(options) + ", " + sys.inspect(https));
