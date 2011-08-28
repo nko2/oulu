@@ -18,7 +18,7 @@ function init() {
 	/* Timer to update backends */
 	function backends_loop() {
 		socket.emit('status');
-		setTimeout(backends_loop, 30000);
+		setTimeout(backends_loop, 10000);
 	}
 	backends_loop();
 	
