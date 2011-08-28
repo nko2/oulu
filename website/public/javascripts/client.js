@@ -113,6 +113,7 @@ function init() {
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
+	        socket.emit('icecap-event', 'msg', { 'time':new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
