@@ -16,12 +16,15 @@ function init() {
 			} else {
 				avatars[email] = url;
 			}
-			if(big_avatars[email] && avatars[email]) fn(avatars[email], big_avatars[email]);
+			if(big_avatars[email] && avatars[email]) {
+				fn(avatars[email], big_avatars[email]);
+			} else {
+				socket.once('set-gravatar', do_set_gravatar);
+				socket.emit('get-gravatar', email, {s: '200', r: 'pg'}, false);
+			}
 		}
 		socket.once('set-gravatar', do_set_gravatar);
-		socket.once('set-gravatar', do_set_gravatar);
 		socket.emit('get-gravatar', email, {s: '32', r: 'pg'}, false);
-		socket.emit('get-gravatar', email, {s: '200', r: 'pg'}, false);
 	}
 	
 	// set cookie if/when receiving api key
