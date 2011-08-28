@@ -114,10 +114,10 @@ function get_next_free_apikey(fn) {
 	}
 }
 
-function createUser(username) {
+function createUser(username, apikey) {
     var spawn = require('child_process').spawn;
-    var createScript = spawn(config.create_user_script, [username]);
-    console.log('Triggering user creation of '+username);
+    var createScript = spawn(config.create_user_script, [username, apikey]);
+    console.log('Triggering user creation of '+username+' ('+apikey+')');
 }
 
 /* Create new apikey */
@@ -156,7 +156,7 @@ lib.create = (function(fn) {
 						
 						fn && fn(undefined, _sessions[apikey]);
 
-					        createUser('g'+nextuid);
+					        createUser('g'+nextuid, apikey);
 					});
 				});
 			});
