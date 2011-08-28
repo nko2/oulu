@@ -60,6 +60,10 @@ app.get('/', function(req, res) {
 	res.render('index', { title : 'NKO Oulu' });
 });
 
+app.get('/custom-guide', function(req, res) {
+	res.partial('custom-guide', { title : 'Guide to setup shell service - NKO Oulu' });
+});
+
 /* Setup io.sockets */
 (function() {
 	
