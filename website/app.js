@@ -204,9 +204,9 @@ app.get('/setup', function(req, res) {
 
 /* Setup HTTP */
 (function() {
-	var config = config || {},
-	    port = config.port || 3000,
+	var port = config.port || 3000,
 	    host = config.host;
+	console.log('Port: ' + port);
 	if(host) app.listen(host, port);
 	else app.listen(port);
 	console.log("Express server listening on port %d in %s mode",
