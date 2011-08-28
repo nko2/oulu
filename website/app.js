@@ -76,9 +76,10 @@ app.get('/', function(req, res) {
 		
 		// Browser requests gravator url
 		browser.on('get-gravatar', function(email, options, https) {
-			var options = options || {},
+			var undefined,
+			    options = options || {},
 			    https = https || false;
-			    url = gravatar.url(email, options, https);
+			    url = email ? gravatar.url(email, options, https) : '';
 			browser.emit('set-gravatar', email, url);
 		});
 		
