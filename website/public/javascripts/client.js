@@ -138,29 +138,35 @@ function init() {
 		};
 		if(name == 'channel_presence_added') {
 			function escape(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 40px;">'+
                     escape(HHmm(data.time))+ ' '+
                     escape(data.presence)+
-                    ' joined'+
+                    ' joined '+ data.channel +
                     '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 		};
 		if(name == 'channel_presence_removed') {
 			function escape(str) { return $('<span/>').text(str).html(); }
-			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 36px;">'+
+			$('#ircrows').prepend('<div class="ircrow" style="display: none; margin-left: 40px;">'+
                     escape(HHmm(data.time))+ ' '+
                     escape(data.presence)+
-                    ' left'+
+                    ' left '+ data.channel +
                     '<hr/></div>');
 			$('.ircrow').fadeIn('slow');
 		};
-
 	});
 	
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-	        handle_msg({ 'time': new Date().getTime(), 'presence': 'Me', 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() });
+	        handle_msg({
+		    'time': new Date().getTime(),
+		    'presence': _me && _me.mypresence || 'Me',
+		    'network' : _me && _me.network || 'freenode',
+		    'address' : _me && _me.address || 'unkown@example.tld',
+		    'channel' : '#node.js',
+		    'msg'     : $('#prompt').val()
+		});
 		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#node.js', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
