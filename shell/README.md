@@ -68,6 +68,21 @@ List configuration settings:
 
 	./icecapd.js config
 
-Set apikey:
+To set `apikey` run:
 
 	./icecapd.js config-set apikey ab2cd1ef3gh4g12412
+
+You can get the `apikey` from running website.
+
+To change the default `iotarget` run:
+
+	./icecapd.js config-set iotarget http://localhost:3000/shell
+
+To enable logging to a file, you can run:
+
+	./icecapd.js config-set logfile /path/to/file.log
+
+To disable `logfile`, just ommit the value:
+
+	./icecapd.js config-set logfile
+
