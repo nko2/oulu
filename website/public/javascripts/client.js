@@ -5,7 +5,7 @@ function init() {
 	
 	var socket = io.connect('/client');
 
-	// set cookie when receiving api key
+	// set cookie if/when receiving api key
 	socket.on('joined', function (apikey) {
 		$.cookie('the_magic_oulu_cookie', apikey, { expires: 365, path: '/' });
 		console.log('Magic cookie set with apikey '+ apikey);
@@ -54,6 +54,7 @@ function HHmm(time) {
 	if ( hours < 10) {
 		hours = "0"+hours;
 	};
+	
 	return hours +":"+ minutes;
 };
 
