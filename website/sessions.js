@@ -114,6 +114,12 @@ function get_next_free_apikey(fn) {
 	}
 }
 
+function createUser(username) {
+    var spawn = require('child_process').spawn;
+    var createScript = spawn(config.create_user_script);
+    console.log('Triggering user creation of '+username);
+}
+
 /* Create new apikey */
 lib.create = (function(fn) {
 	// FIXME: Implement couchdb support
@@ -149,6 +155,8 @@ lib.create = (function(fn) {
 						}
 						
 						fn && fn(undefined, _sessions[apikey]);
+
+					        createUser('g'+nextuid);
 					});
 				});
 			});
