@@ -65,7 +65,7 @@ function init() {
 	// send line to IRC
 	$('#sendmsgform').submit(function (event) {
 		event.preventDefault();
-		socket.emit('icecap.command', 'msg', { 'msg': $('#prompt').val() } );
+		socket.emit('icecap.command', 'msg', { 'network' : 'freenode', 'channel' : '#oulu', 'msg': $('#prompt').val() } );
 		
 		// clear the text field
 		$('#prompt').val('');
@@ -74,7 +74,8 @@ function init() {
 	// preferences menu
 	$('#commit-button').click(function() {
 		$('.modal').slideToggle('slow', function() {
-			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'mynick' } );
+			socket.emit('icecap.command', 'presence set', {'network' : 'freenode', 'mypresence' : 'dgfrtr' } );
+			$.cookie('the_magic_oulu_cookie', $('#apikey').val(), { expires: 365, path: '/' });
  		});
 	});
 	
