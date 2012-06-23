@@ -5,7 +5,7 @@
 /* Temporary in memory database for User Sessions */
 var _sessions = [],
     lib = module.exports = {},
-    sys = require('sys'),
+    util = require('util'),
     config = require('./safe-config.js'),
 	cradle, cradle_con, users_db, db_name;
 
@@ -30,7 +30,7 @@ if(config.couchdb) {
 	
 	setup(function(err, db) {
 		if(err) {
-			console.log('Error: ' + sys.inspect(err));
+			console.log('Error: ' + util.inspect(err));
 			return;
 		}
 		if(db) {

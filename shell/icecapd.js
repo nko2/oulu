@@ -5,7 +5,7 @@ var init = require('init'),
     fs = require('fs'),
     path = require('path'),
     util = require('util'),
-    sys = require('sys'),
+    util = require('util'),
     config = {};
 
 /* Read (optional) configuration file */
@@ -38,7 +38,7 @@ var init = require('init'),
 		}
 		if(arg === 'config') {
 			console.log('Config from file `' + file + "`:" );
-			console.log(sys.inspect(config));
+			console.log(util.inspect(config));
 			exit = true;
 		}
 		
@@ -81,7 +81,7 @@ init.simple({
 			
 			// Let's log every icecap event
 			//icecap.on('event', function(name, tokens) {
-			//	util.log("DEBUG: icecap.on(event): " + sys.inspect(name) + ": " + sys.inspect(tokens) );
+			//	util.log("DEBUG: icecap.on(event): " + util.inspect(name) + ": " + util.inspect(tokens) );
 			//});
 			
 			// Lets handle errors
@@ -100,7 +100,7 @@ init.simple({
 					icecap.on('event', icecap_event);
 					
 					website_socket.on('icecap.command', function(name, tokens) {
-						util.log("DEBUG: website_socket.on(client-event): " + sys.inspect(name) + ": " + sys.inspect(tokens) );
+						util.log("DEBUG: website_socket.on(client-event): " + util.inspect(name) + ": " + util.inspect(tokens) );
 						icecap.command(name, tokens);
 					});
 					
