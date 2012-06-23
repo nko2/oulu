@@ -5,7 +5,7 @@
 var app = module.exports = {},
     config = require('./safe-config.js'),
     express = require('express'),
-    sys = require('sys'),
+    util = require('util'),
     util = require('util'),
     params = require('express-params'),
     namespace = require('express-namespace'),
@@ -96,7 +96,7 @@ app.get('/intro', function(req, res) {
 		
 		// Browser requests gravator url
 		browser.on('get-gravatar', function(email, options, https) {
-			console.log('EVENT: get-gravatar: ' + sys.inspect(email) + ", " + sys.inspect(options) + ", " + sys.inspect(https));
+			console.log('EVENT: get-gravatar: ' + util.inspect(email) + ", " + util.inspect(options) + ", " + util.inspect(https));
 			var undefined,
 			    options = options || {},
 			    https = https || false,
@@ -106,7 +106,7 @@ app.get('/intro', function(req, res) {
 				url = email ? gravatar.url(email, options, https) : '';
 			} finally {
 				if(!url) url = '';
-				console.log('Emiting URL: ' + sys.inspect(url));
+				console.log('Emiting URL: ' + util.inspect(url));
 				browser.emit('set-gravatar', email, url, options, https);
 			}
 		});
@@ -116,7 +116,7 @@ app.get('/intro', function(req, res) {
 			console.log('Client requested new api key');
 			sessions.create(function(err, sess) {
 				if(err) {
-					console.log('Error: ' + sys.inspect(err));
+					console.log('Error: ' + util.inspect(err));
 					browser.emit('error', 'Failed to create apikey');
 					browser.emit('join-failed');
 					browser.emit('rejected-apikey');
@@ -130,7 +130,7 @@ app.get('/intro', function(req, res) {
 		
 		// Browser joins with an API key
 		browser.on('join', function(apikey) {
-			console.log( 'DEBUG: browser joins with apikey = ' + sys.inspect(apikey) );
+			console.log( 'DEBUG: browser joins with apikey = ' + util.inspect(apikey) );
 			if(session) {
 				console.log('Error: This browser was already joined to session.');
 				browser.emit('error', 'This browser was already joined to session!');
@@ -156,7 +156,7 @@ app.get('/intro', function(req, res) {
 		
 		// Browser sends an icecap.command event
 		browser.on('icecap.command', function(name, tokens) {
-			console.log( 'DEBUG: browser.on(icecap.command): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			console.log( 'DEBUG: browser.on(icecap.command): ' + util.inspect(name) + ": " + util.inspect( tokens ) );
 			session && session.shell && session.shell.emit('icecap.command', name, tokens);
 		});
 		
@@ -164,7 +164,7 @@ app.get('/intro', function(req, res) {
 		browser.once('disconnect', function () {
 			console.log( 'DEBUG: browser disconnected');
 			session && session.browser && session.part(browser);
-			//console.log('session = ' + sys.inspect(session));
+			//console.log('session = ' + util.inspect(session));
 			browser.removeAllListeners('icecap.command');
 			browser.removeAllListeners('join');
 			browser.removeAllListeners('create');
@@ -182,7 +182,7 @@ app.get('/intro', function(req, res) {
 		shell.on('create', function() {
 			sessions.create(function(err, sess) {
 				if(err) {
-					console.log('Error: ' + sys.inspect(err));
+					console.log('Error: ' + util.inspect(err));
 					shell.emit('join-failed');
 					shell.emit('rejected-apikey');
 					shell.emit('error', 'Failed to create apikey');
@@ -196,7 +196,7 @@ app.get('/intro', function(req, res) {
 		
 		// Shell joins with an API key
 		shell.on('join', function(apikey) {
-			console.log( 'DEBUG: shell joins with apikey = ' + sys.inspect(apikey) );
+			console.log( 'DEBUG: shell joins with apikey = ' + util.inspect(apikey) );
 			if(session) {
 				console.log('Error: This shell was already joined to session.');
 				shell.emit('join-failed');
@@ -223,9 +223,9 @@ app.get('/intro', function(req, res) {
 		
 		// Shell sends an icecap-event, we proxy it to the browser
 		shell.on('icecap-event', function(name, tokens) {
-			console.log( 'DEBUG: shell.on(icecap-event): ' + sys.inspect(name) + ": " + sys.inspect( tokens ) );
+			console.log( 'DEBUG: shell.on(icecap-event): ' + util.inspect(name) + ": " + util.inspect( tokens ) );
 			session && session.browser && session.browser.emit('icecap-event', name, tokens);
-			console.log('session = ' + sys.inspect(session));
+			console.log('session = ' + util.inspect(session));
 		});
 		
 		// Shell daemon disconnects
