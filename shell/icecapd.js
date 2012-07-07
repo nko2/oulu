@@ -14,8 +14,8 @@ var init = require('init'),
 	    dir = path.resolve(home, '.icecapd-js'),
 	    file = path.resolve(dir, 'config.json');
 	try {
-		if(!path.existsSync(dir)) fs.mkdirSync(dir, 0700);
-		if(path.existsSync(file)) {
+		if(!fs.existsSync(dir)) fs.mkdirSync(dir, 0700);
+		if(fs.existsSync(file)) {
 			config = JSON.parse(fs.readFileSync(file, 'utf-8'));
 		}
 	} catch(e) {
